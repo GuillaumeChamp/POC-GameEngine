@@ -10,7 +10,7 @@ public class Player {
         Image[] player_frame = new Image[1];
         player_frame[0] = new Image(".//Resources//skin//player.png");
         skin = new MovingAnimatedImage(player_frame, 1);
-        location = new Level();
+        location = new Level(true);
         HP = 20;
     }
 
