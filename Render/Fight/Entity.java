@@ -1,4 +1,4 @@
-package Figth;
+package Fight;
 
 import javafx.scene.image.Image;
 
@@ -11,6 +11,7 @@ public abstract class Entity {
     protected Image[] skin;
     protected double armorBuff = 1;
     protected double damageBuff = 1;
+    protected Entity target;
 
     public Entity(int hp, int armor, int speed, int damage, String name, Image[] skin) {
         this.name = name;
@@ -19,6 +20,10 @@ public abstract class Entity {
         this.speed = speed;
         this.damage = damage;
         this.skin = skin;
+    }
+
+    public Entity getTarget() {
+        return target;
     }
 
     /**
@@ -57,7 +62,7 @@ public abstract class Entity {
     }
 
     /**
-     * Sub function for buff or unbuff an entity according to a specific rule
+     * Sub function for buff or un-buff an entity according to a specific rule
      * @param type  which multiplier have to be modify
      * @param up    true if it's a buff
      * @throws Exception Throw if the rule can't be follow
@@ -73,10 +78,11 @@ public abstract class Entity {
     }
 
     /**
-     * Allow to know if the opponent is dead
+     * Allow to know if the opponent is dead and kill him
      * @throws Exception only if the entity is dead
      */
     public void died() throws Exception {
+        this.hp=0;
         throw new Exception("EndOfEntity");
     }
 
@@ -88,4 +94,5 @@ public abstract class Entity {
     public void Attack(Entity entity) throws Exception {
         entity.takeDamage(damage*damageBuff);
     }
+    public abstract void act() throws Exception;
 }

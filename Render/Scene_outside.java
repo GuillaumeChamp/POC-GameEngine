@@ -43,14 +43,14 @@ public class Scene_outside extends Scene implements Game_Scene{
 
         player.skin.update();
 
-        double offsetlandX = player.skin.getPositionX() - (width >> 1);
-        double offsetlandY = player.skin.getPositionY() - (height >> 1);
-        if (offsetlandX < 0) offsetlandX = 0;
-        if (offsetlandX > player.location.getSizeX()-512) offsetlandX = player.location.getSizeX()-width;
-        if (offsetlandY < 0) offsetlandY = 0;
-        if (offsetlandY > player.location.getSizeY()-512) offsetlandY = player.location.getSizeY()-height;
+        double offSetLandX = player.skin.getPositionX() - (width >> 1);
+        double offSetLandY = player.skin.getPositionY() - (height >> 1);
+        if (offSetLandX < 0) offSetLandX = 0;
+        if (offSetLandX > player.location.getSizeX()-512) offSetLandX = player.location.getSizeX()-width;
+        if (offSetLandY < 0) offSetLandY = 0;
+        if (offSetLandY > player.location.getSizeY()-512) offSetLandY = player.location.getSizeY()-height;
 
-        gc.drawImage(player.location.getBackground(),offsetlandX,offsetlandY,width,height,0,0,width,height);
-        gc.drawImage(player.skin.getFrame(t), (int) player.skin.getPositionX() - offsetlandX, (int) player.skin.getPositionY()-offsetlandY);
+        gc.drawImage(player.location.getBackground(),offSetLandX,offSetLandY,width,height,0,0,width,height);
+        gc.drawImage(player.skin.getFrame(t), (int) player.skin.getPositionX() - offSetLandX, (int) player.skin.getPositionY()-offSetLandY);
     }
 }

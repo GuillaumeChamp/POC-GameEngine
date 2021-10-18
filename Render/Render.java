@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.stage.*;
 import javafx.scene.*;
@@ -9,15 +8,12 @@ public class Render extends Application {
 
     public void start(Stage theStage) {
         theStage.setTitle("Render");
-        ArrayList<String> input = new ArrayList<>(); //store the keyboard input
         Player player = new Player();
-
         Group root = new Group();
 
         final long startNanoTime = System.nanoTime();
         final long width = 512; //width of the window
         final long height = 512; //height of the window
-
         Canvas canvas = new Canvas(width, height);
         root.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();

@@ -6,7 +6,7 @@ public class Level {
     private final double sizeY;
     private final boolean peaceful;
     private MovingAnimatedImage[] Object; //list of all object display of the level display on the screen
-//    private MovingAnimatedImage[] npc; need an interface to make them talkable
+//    private MovingAnimatedImage[] npc; need an interface to allow them to talk
 
     public Level(boolean peaceful){
         this.peaceful = peaceful;
