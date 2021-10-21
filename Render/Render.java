@@ -1,3 +1,6 @@
+import OutDoor.Player;
+import OutDoor.Scene_outside;
+import Universal.Game_Scene;
 import javafx.application.Application;
 import javafx.stage.*;
 import javafx.scene.*;

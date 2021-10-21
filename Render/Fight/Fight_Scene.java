@@ -1,6 +1,9 @@
+package Fight;
+
 import Fight.Enemy;
 import Fight.Entity;
 import Fight.Hero;
+import Universal.Game_Scene;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -9,7 +12,7 @@ import java.util.ArrayList;
 
 public class Fight_Scene extends Scene implements Game_Scene {
     //TODO : might hold enemy but not the hero except on static field
-    private final Image background = new Image(".//Resources/Level/town_land.png");
+    private final Image background = new Image(".//Resources/OutDoor.Level/town_land.png");
     private ArrayList<Enemy> enemies;
     private ArrayList<Hero> heroes;
     private boolean endOfTurn;
@@ -18,7 +21,7 @@ public class Fight_Scene extends Scene implements Game_Scene {
      * Create a new scene to be ready for a fight
      * @param root root of the app
      */
-    Fight_Scene(Group root){
+    public Fight_Scene(Group root){
         super(root);
         //TODO make a loader of hero
         //TODO read the list of enemy and load them
@@ -32,7 +35,7 @@ public class Fight_Scene extends Scene implements Game_Scene {
         return first;
     }
 
-    private void playTurn() throws Exception{
+    private void playTurn(){
         endOfTurn = false;
         ArrayList<Entity> entities = new ArrayList<>();
         for(Enemy e: enemies) e.SelectTarget(heroes);
@@ -49,12 +52,22 @@ public class Fight_Scene extends Scene implements Game_Scene {
                     entities.remove(dead);
                     if(dead.getClass()==Hero.class) {
                         heroes.remove(dead);
-                        if (heroes.isEmpty()) throw new Exception("Loss");
+                        if (heroes.isEmpty()) loss();
                     }
-                    enemies.remove(dead); //TODO replace by a loot methode and check if the fight is not finish
+                    else {
+                        try {
+                            enemies.remove(dead); //TODO replace by a loot methode and check if the fight is not finish
+                            if (enemies.isEmpty()) win();
+                        }catch (Exception ee){
+                            ee.printStackTrace();
+                        }
+                    }
                 }
             }
         }
+    }
+    private void win(){
+        //TODO : swap the scene and grant loot and xps
     }
     private void loss(){
         //TODO : swap the scene and go back to an int and maybe lose money
@@ -62,12 +75,7 @@ public class Fight_Scene extends Scene implements Game_Scene {
     @Override
     public void Tick(double t) {
         //TODO : make the attack selection
-        if (endOfTurn){
-            try {
-                playTurn();
-            }catch (Exception e){
-                if (e.getMessage().equals("Loss")) loss();
-            }
-        }
+        if (endOfTurn) playTurn();
+
     }
 }

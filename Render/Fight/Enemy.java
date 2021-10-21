@@ -11,17 +11,24 @@ public abstract class Enemy extends Entity{
 
     /**
      * Select randomly a target among heroes according to its position
+     * complex code and loop to be fair
      * @param heroes list of all heroes alive
-     * @return the target of the attack if there are only one
      */
     public void SelectTarget (ArrayList<Hero> heroes){
-        target = heroes.get(0);
+        target=null;
+        boolean front = false;
+        double rng = Math.random();
+        if (rng>0.8) front = true;
         for (Hero h : heroes){
-            double rng = Math.random();
+            rng = Math.random();
             if (h.isInFront){
-                if (rng > 0.35) target=h;
+                if (front&target==null) target=h;
+                else if (rng>0.5) target=h;
             }
-            else if(rng> 0.7) target = h;
+            else {
+                if ((!front) & target==null) target=h;
+                else if (rng>0.5) target=h;
+            }
         }
     }
 

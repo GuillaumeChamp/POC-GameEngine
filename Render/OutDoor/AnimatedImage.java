@@ -1,3 +1,5 @@
+package OutDoor;
+
 import javafx.scene.image.*;
 
 public class AnimatedImage

@@ -1,10 +1,14 @@
+package OutDoor;
+
+import OutDoor.Player;
+import Universal.Game_Scene;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
-public class Scene_outside extends Scene implements Game_Scene{
+public class Scene_outside extends Scene implements Game_Scene {
     private final Player player;
     private final ArrayList<String> input = new ArrayList<>(); //store the keyboard input
     private final GraphicsContext gc;
@@ -12,7 +16,7 @@ public class Scene_outside extends Scene implements Game_Scene{
     final long width; //width of the window
     final long height; //height of the window
 
-    Scene_outside(Group root, Player player,GraphicsContext gc,long width,long height){
+    public Scene_outside(Group root, Player player,GraphicsContext gc,long width,long height){
         super(root);
         this.player=player;
         this.gc=gc;
@@ -32,17 +36,44 @@ public class Scene_outside extends Scene implements Game_Scene{
             input.remove(code);
         });
     }
+    private void walk(){
+        player.skin.setVelocity(0,0);
+        boolean moved = false;
+        if (input.contains("LEFT")) {
+            player.skin.addVelocity(-10, 0);
+            moved = true;
+        }
+        if (input.contains("RIGHT")) {
+            player.skin.addVelocity(10, 0);
+            moved = true;
+        }
+        if (input.contains("UP")) {
+            player.skin.addVelocity(0, -10);
+            moved = true;
+        }
+        if (input.contains("DOWN")) {
+            player.skin.addVelocity(0, 10);
+            moved = true;
+        }
+        player.skin.update();
+        if (moved) triggerCombat();
+    }
+
+    private void triggerCombat(){
+        if (!player.location.isPeaceful()){
+            double rng = Math.random();
+            if (rng>0.95) Combat();
+        }
+    }
+
+    private void Combat(){
+        //TODO : Switch to Fight
+        System.out.println("new Fight");
+    }
 
     @Override
     public void Tick(double t){
-        player.skin.setVelocity(0,0);
-        if (input.contains("LEFT")) player.skin.addVelocity(-10, 0);
-        if (input.contains("RIGHT")) player.skin.addVelocity(10, 0);
-        if (input.contains("UP")) player.skin.addVelocity(0, -10);
-        if (input.contains("DOWN")) player.skin.addVelocity(0, 10);
-
-        player.skin.update();
-
+        walk();
         double offSetLandX = player.skin.getPositionX() - (width >> 1);
         double offSetLandY = player.skin.getPositionY() - (height >> 1);
         if (offSetLandX < 0) offSetLandX = 0;
