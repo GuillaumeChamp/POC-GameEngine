@@ -1,8 +1,4 @@
 package Fight;
-
-import Fight.Enemy;
-import Fight.Entity;
-import Fight.Hero;
 import Universal.Game_Scene;
 import javafx.scene.Group;
 import javafx.scene.Scene;

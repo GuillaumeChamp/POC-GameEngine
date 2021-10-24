@@ -1,14 +1,15 @@
 package OutDoor;
 
+import Universal.MovingAnimatedImage;
 import javafx.scene.image.*;
 
 public class Level {
-    private Image background;
+    private final Image background;
     private final double sizeX;
     private final double sizeY;
     private final boolean peaceful;
     private MovingAnimatedImage[] Object; //list of all object display of the level display on the screen
-//    private OutDoor.MovingAnimatedImage[] npc; need an interface to allow them to talk
+//    private Universal.MovingAnimatedImage[] npc; need an interface to allow them to talk
 
     public Level(boolean peaceful){
         this.peaceful = peaceful;

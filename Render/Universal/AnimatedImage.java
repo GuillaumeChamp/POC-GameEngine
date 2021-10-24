@@ -1,4 +1,4 @@
-package OutDoor;
+package Universal;
 
 import javafx.scene.image.*;
 
@@ -11,13 +11,6 @@ public class AnimatedImage
     {
         int index = (int)((time % (frames.length * duration)) / duration);
         return frames[index];
-    }
-    public double getDuration() {
-        return duration;
-    }
-
-    public Image[] getFrames() {
-        return frames;
     }
 
     public void setDuration(double duration) {

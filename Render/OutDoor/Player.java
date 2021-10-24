@@ -1,4 +1,5 @@
 package OutDoor;
+import Universal.MovingAnimatedImage;
 import javafx.scene.image.Image;
 
 public class Player {

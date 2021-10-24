@@ -1,6 +1,4 @@
 package OutDoor;
-
-import OutDoor.Player;
 import Universal.Game_Scene;
 import javafx.scene.Group;
 import javafx.scene.Scene;

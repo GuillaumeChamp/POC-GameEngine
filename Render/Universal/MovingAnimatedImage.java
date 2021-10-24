@@ -1,4 +1,4 @@
-package OutDoor;
+package Universal;
 import javafx.scene.image.*;
 
 public class MovingAnimatedImage extends AnimatedImage {
