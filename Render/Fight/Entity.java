@@ -1,6 +1,9 @@
 package Fight;
 
+import Fight.Alteration.Alteration;
 import Universal.AnimatedImage;
+
+import java.util.ArrayList;
 
 public abstract class Entity {
     protected double hp;
@@ -12,6 +15,7 @@ public abstract class Entity {
     protected double armorBuff = 1;
     protected double damageBuff = 1;
     protected Entity target;
+    protected ArrayList<Alteration> state;
 
     public Entity(int hp, int armor, int speed, int damage, String name, AnimatedImage skin) {
         this.name = name;
@@ -25,7 +29,22 @@ public abstract class Entity {
     public Entity getTarget() {
         return target;
     }
+    public void inflictAlteration(Alteration a){
+        state.add(a);
+    }
+    protected void stateHandler(){
+        //TODO State handler
+        for (Alteration a :state) {
+                a.addTurn();
+        }
+    }
 
+    /**
+     * Need to be call at the end of the turn
+     */
+    protected void RemoveAlteration(){
+        state.removeIf(Alteration::checkEnd);
+    }
     /**
      * Use it to determine who attack first
      * @return the speed value

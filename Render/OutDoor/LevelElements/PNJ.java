@@ -1,6 +1,5 @@
 package OutDoor.LevelElements;
 import Universal.ImageBuilder;
-import Universal.MovingAnimatedImage;
 
 public class PNJ {
     protected String name;

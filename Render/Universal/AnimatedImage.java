@@ -13,10 +13,18 @@ public class AnimatedImage
         return frames[index];
     }
 
+    /**
+     * Useful for animation and cinematic
+     * @param duration frame duration on second (I guess)
+     */
     public void setDuration(double duration) {
         this.duration = duration;
     }
 
+    /**
+     * Useful to change the texture might be use on trigger or cinematic
+     * @param frames new texture of the character
+     */
     public void setFrames(Image[] frames) {
         this.frames = frames;
     }

@@ -1,11 +1,12 @@
-package Universal;
+package OutDoor.LevelElements;
+import Universal.AnimatedImage;
 import javafx.scene.image.*;
 
 public class MovingAnimatedImage extends AnimatedImage {
-    private double positionX;
-    private double positionY;
-    private double velocityX;
-    private double velocityY;
+    protected double positionX;
+    protected double positionY;
+    protected double velocityX;
+    protected double velocityY;
 
     public MovingAnimatedImage(Image[] frames, double duration) {
         positionX = 0;
@@ -31,6 +32,7 @@ public class MovingAnimatedImage extends AnimatedImage {
         this.velocityY =+ velocityY;
     }
     public void update() {
+        //TODO : fixme must follow the patrol of the npc
         positionY += velocityY;
         positionX += velocityX;
         if (0 > positionX) positionX = 0;

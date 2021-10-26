@@ -2,7 +2,7 @@ package OutDoor;
 
 import OutDoor.LevelElements.PNJ;
 import OutDoor.LevelElements.Warp;
-import Universal.MovingAnimatedImage;
+import OutDoor.LevelElements.MovingAnimatedImage;
 import javafx.scene.image.*;
 
 import java.util.ArrayList;

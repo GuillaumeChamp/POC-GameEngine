@@ -61,6 +61,8 @@ public class Fight_Scene extends Scene implements Game_Scene {
                 }
             }
         }
+        for (Entity e : heroes) e.RemoveAlteration();
+        for (Entity e : enemies) e.RemoveAlteration();
     }
     private void win(){
         //TODO : swap the scene and grant loot and xps
