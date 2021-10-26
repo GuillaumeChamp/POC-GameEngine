@@ -1,6 +1,6 @@
 package Fight;
 
-import javafx.scene.image.Image;
+import Universal.AnimatedImage;
 
 public abstract class Entity {
     protected double hp;
@@ -8,12 +8,12 @@ public abstract class Entity {
     protected double speed;
     protected double damage;
     protected String name;
-    protected Image[] skin;
+    protected AnimatedImage skin;
     protected double armorBuff = 1;
     protected double damageBuff = 1;
     protected Entity target;
 
-    public Entity(int hp, int armor, int speed, int damage, String name, Image[] skin) {
+    public Entity(int hp, int armor, int speed, int damage, String name, AnimatedImage skin) {
         this.name = name;
         this.hp = hp;
         this.armor = armor;

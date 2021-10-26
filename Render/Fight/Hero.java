@@ -1,10 +1,10 @@
 package Fight;
 
-import javafx.scene.image.Image;
+import Universal.AnimatedImage;
 
 public class Hero extends Entity{
     public boolean isInFront = true;
-    public Hero(int hp, int armor, int speed, int damage, String name, Image[] skin) {
+    public Hero(int hp, int armor, int speed, int damage, String name, AnimatedImage skin) {
         super(hp, armor, speed, damage, name, skin);
     }
 

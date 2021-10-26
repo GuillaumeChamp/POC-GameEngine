@@ -1,11 +1,11 @@
 package Fight;
 
-import javafx.scene.image.Image;
+import Universal.AnimatedImage;
 
 import java.util.ArrayList;
 
 public abstract class Enemy extends Entity{
-    public Enemy(int hp, int armor, int speed, int damage, String name, Image[] skin) {
+    public Enemy(int hp, int armor, int speed, int damage, String name, AnimatedImage skin) {
         super(hp, armor, speed, damage, name, skin);
     }
 

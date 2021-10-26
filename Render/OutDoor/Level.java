@@ -1,7 +1,11 @@
 package OutDoor;
 
+import OutDoor.LevelElements.PNJ;
+import OutDoor.LevelElements.Warp;
 import Universal.MovingAnimatedImage;
 import javafx.scene.image.*;
+
+import java.util.ArrayList;
 
 public class Level {
     private final Image background;
@@ -9,13 +13,22 @@ public class Level {
     private final double sizeY;
     private final boolean peaceful;
     private MovingAnimatedImage[] Object; //list of all object display of the level display on the screen
-//    private Universal.MovingAnimatedImage[] npc; need an interface to allow them to talk
+    private PNJ[] npc;
+    private ArrayList<Warp> tp;
 
     public Level(boolean peaceful){
         this.peaceful = peaceful;
         background = new Image(".//Resources//OutDoor.Level//town_land.png");
         sizeY = background.getHeight();
         sizeX = background.getWidth();
+    }
+
+    public ArrayList<Warp> getTp() {
+        return tp;
+    }
+
+    public void setTp(ArrayList<Warp> tp) {
+        this.tp = tp;
     }
 
     public boolean isPeaceful() {
