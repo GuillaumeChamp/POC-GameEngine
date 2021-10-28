@@ -1,4 +1,4 @@
-import OutDoor.Player;
+import Universal.Player;
 import OutDoor.Scene_outside;
 import Universal.Game_Scene;
 import javafx.application.Application;

@@ -1,5 +1,6 @@
 package OutDoor;
 import Universal.Game_Scene;
+import Universal.Player;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;

@@ -18,7 +18,7 @@ public class Level {
 
     public Level(boolean peaceful){
         this.peaceful = peaceful;
-        background = new Image(".//Resources//OutDoor.Level//town_land.png");
+        background = new Image(".//Resources//Level//town_land.png");
         sizeY = background.getHeight();
         sizeX = background.getWidth();
     }

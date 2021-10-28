@@ -8,10 +8,10 @@ public class MovingAnimatedImage extends AnimatedImage {
     protected double velocityX;
     protected double velocityY;
 
-    public MovingAnimatedImage(Image[] frames, double duration) {
+    public MovingAnimatedImage(String path, double duration) {
+        super(path);
         positionX = 0;
         positionY = 0;
-        this.frames = frames;
         this.duration = duration;
     }
 

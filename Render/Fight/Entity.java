@@ -2,6 +2,7 @@ package Fight;
 
 import Fight.Alteration.Alteration;
 import Universal.AnimatedImage;
+import Universal.ImageBuilder;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public abstract class Entity {
         this.armor = armor;
         this.speed = speed;
         this.damage = damage;
-        this.skin = skin;
+        this.skin = new AnimatedImage(name);
     }
 
     public Entity getTarget() {

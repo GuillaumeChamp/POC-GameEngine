@@ -1,14 +1,13 @@
 package OutDoor;
 
 import OutDoor.LevelElements.MovingAnimatedImage;
-import javafx.scene.image.Image;
 
 public class PlayerMovement extends MovingAnimatedImage {
     double XLim;
     double YLim;
 
-    public PlayerMovement(Image[] frames, double duration) {
-        super(frames, duration);
+    public PlayerMovement(String path, double duration) {
+        super(path, duration);
     }
     public void update() {
         positionY += velocityY;

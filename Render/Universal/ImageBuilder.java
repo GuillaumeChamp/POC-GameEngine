@@ -7,11 +7,11 @@ import javafx.scene.image.WritableImage;
 public class ImageBuilder {
     /**
      * Build the Images Array cropping on the specific path
-     * @param filename prefix of the image to load
+     * @param path prefix of the image to load
      * @return Image Array
      */
-    public Image[] build(String filename){
-        Image file = new Image(".//Resources//skin//"+filename);
+    public static Image[] build(String path){
+        Image file = new Image(path); //".//Resources//skin//"+
         int column = (int) (file.getWidth()/40);
         int line = (int) (file.getHeight()/40);
         Image[] output = new Image[line*column];

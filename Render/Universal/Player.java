@@ -1,6 +1,7 @@
-package OutDoor;
+package Universal;
 import Fight.Hero;
-import Universal.TriggerList;
+import OutDoor.Level;
+import OutDoor.PlayerMovement;
 import javafx.scene.image.Image;
 
 public class Player {
@@ -10,9 +11,7 @@ public class Player {
     private TriggerList progression;
 
     public Player(){
-        Image[] player_frame = new Image[1];
-        player_frame[0] = new Image(".//Resources//skin//player.png");
-        skin = new PlayerMovement(player_frame, 1);
+        skin = new PlayerMovement(".//Resources//skin//player.png", 1);
         location = new Level(false);
     }
 }

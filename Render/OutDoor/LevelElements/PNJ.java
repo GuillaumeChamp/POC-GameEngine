@@ -12,7 +12,7 @@ public class PNJ {
 
     public PNJ(String name, String skinName, String[] dialogue, int[] startX, int[] startY) {
         this.name = name;
-        this.entity = new MovingAnimatedImage(new ImageBuilder().build(skinName),1);
+        this.entity = new MovingAnimatedImage(skinName,1);
         this.dialogue = dialogue;
         this.startX = startX;
         this.startY = startY;

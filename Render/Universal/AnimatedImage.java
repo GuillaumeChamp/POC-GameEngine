@@ -7,6 +7,11 @@ public class AnimatedImage
     protected Image[] frames;
     protected double duration;
 
+    public AnimatedImage(String path){
+        frames = ImageBuilder.build(path);
+        duration = 1;
+    }
+
     public Image getFrame(double time)
     {
         int index = (int)((time % (frames.length * duration)) / duration);
