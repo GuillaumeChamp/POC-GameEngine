@@ -3,11 +3,11 @@ package Universal.Stuff;
 import java.util.ArrayList;
 
 public class Inventory {
-    ArrayList<Equipment> equipments;
-    ArrayList<Consumable> consumables;
-    ArrayList<Loot> loots;
+    static ArrayList<Equipment> equipments;
+    static ArrayList<Consumable> consumables;
+    static ArrayList<Loot> loots;
 
-    public void add(Item item){
+    public static void add(Item item){
         if (item.getClass()==Consumable.class) {
             for (Consumable c: consumables) {
                 if (c.getName().equals(item.getName())) c.add(item.getNumber());

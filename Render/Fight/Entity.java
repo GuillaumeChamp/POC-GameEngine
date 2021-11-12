@@ -2,11 +2,11 @@ package Fight;
 
 import Fight.Alteration.Alteration;
 import Universal.AnimatedImage;
-import Universal.ImageBuilder;
 
 import java.util.ArrayList;
 
 public abstract class Entity {
+    protected double hpMax;
     protected double hp;
     protected double armor;
     protected double speed;
@@ -17,10 +17,11 @@ public abstract class Entity {
     protected double damageBuff = 1;
     protected Entity target;
     protected ArrayList<Alteration> state;
-
-    public Entity(int hp, int armor, int speed, int damage, String name, AnimatedImage skin) {
+    //TODO add new behaviour to include elemental aspect and speelcasting stat
+    public Entity(int hpMax, int armor, int speed, int damage, String name, AnimatedImage skin) {
         this.name = name;
-        this.hp = hp;
+        this.hpMax = hpMax;
+        this.hp = hpMax;
         this.armor = armor;
         this.speed = speed;
         this.damage = damage;
@@ -30,8 +31,10 @@ public abstract class Entity {
     public Entity getTarget() {
         return target;
     }
-    public void inflictAlteration(Alteration a){
-        state.add(a);
+
+    public void inflictAlteration(Alteration.alteration a){
+        Alteration alt = new Alteration(a);
+        if (state.contains(alt)) state.add(alt); //Fixme : real check
     }
     protected void stateHandler(){
         //TODO State handler
@@ -60,10 +63,17 @@ public abstract class Entity {
      * @throws Exception I am dead now
      */
     public void takeDamage(double damage) throws Exception {
+        if (damage<0) return;
         hp = hp - (damage)/(armor*armorBuff);
-        if (hp<1) {
+        if (hp <1) {
             this.died();
         }
+    }
+
+    public void heal(double amount) {
+        if (amount<0) return;
+        hp = hp + amount;
+        if(hp > hpMax) hp = hpMax;
     }
 
     /**
@@ -102,7 +112,7 @@ public abstract class Entity {
      * @throws Exception only if the entity is dead
      */
     public void died() throws Exception {
-        this.hp=0;
+        this.hpMax =0;
         throw new Exception("EndOfEntity");
     }
 

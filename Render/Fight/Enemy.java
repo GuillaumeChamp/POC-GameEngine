@@ -1,12 +1,19 @@
 package Fight;
 
 import Universal.AnimatedImage;
+import Universal.Stuff.Item;
+import Universal.Stuff.Loot;
 
 import java.util.ArrayList;
 
-public abstract class Enemy extends Entity{
-    public Enemy(int hp, int armor, int speed, int damage, String name, AnimatedImage skin) {
+public class Enemy extends Entity{
+    public final double xp;
+    private final Loot[] loots;
+
+    public Enemy(int hp, int armor, int speed, int damage, String name, AnimatedImage skin, double xp, Loot[] loots) {
         super(hp, armor, speed, damage, name, skin);
+        this.xp = xp;
+        this.loots = loots;
     }
 
     /**
@@ -30,6 +37,14 @@ public abstract class Enemy extends Entity{
                 else if (rng>0.5) target=h;
             }
         }
+    }
+
+    public ArrayList<Item> loot(){
+        ArrayList<Item> ans = new ArrayList<>();
+        double rng = Math.random();
+        for (Loot loot : loots)
+            if (loot.tryToLoot(rng)) ans.add(loot);
+        return ans;
     }
 
     @Override

@@ -1,5 +1,8 @@
 package Fight;
 import Universal.Game_Scene;
+import Universal.Stuff.Inventory;
+import Universal.Stuff.Item;
+import Universal.Stuff.Loot;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -12,6 +15,8 @@ public class Fight_Scene extends Scene implements Game_Scene {
     private ArrayList<Enemy> enemies;
     private ArrayList<Hero> heroes;
     private boolean endOfTurn;
+    private ArrayList<Item> loots;
+    private double xpearn = 0;
 
     /**
      * Create a new scene to be ready for a fight
@@ -43,22 +48,7 @@ public class Fight_Scene extends Scene implements Game_Scene {
             try {
                 actor.act();
             }catch (Exception e){
-                if (e.getMessage().equals("EndOfEntity")){
-                    Entity dead = actor.getTarget();
-                    entities.remove(dead);
-                    if(dead.getClass()==Hero.class) {
-                        heroes.remove(dead);
-                        if (heroes.isEmpty()) loss();
-                    }
-                    else {
-                        try {
-                            enemies.remove(dead); //TODO replace by a loot methode and check if the fight is not finish
-                            if (enemies.isEmpty()) win();
-                        }catch (Exception ee){
-                            ee.printStackTrace();
-                        }
-                    }
-                }
+                if (e.getMessage().equals("EndOfEntity")) deadHandler(actor,entities);
             }
         }
         for (Entity e : heroes) e.RemoveAlteration();
@@ -66,6 +56,9 @@ public class Fight_Scene extends Scene implements Game_Scene {
     }
     private void win(){
         //TODO : swap the scene and grant loot and xps
+        int number = heroes.size();
+        for (Hero hero : heroes) hero.grantXp(xpearn/number);
+        for (Item item : loots) Inventory.add(item);
     }
     private void loss(){
         //TODO : swap the scene and go back to an int and maybe lose money
@@ -74,6 +67,29 @@ public class Fight_Scene extends Scene implements Game_Scene {
     public void Tick(double t) {
         //TODO : make the attack selection
         if (endOfTurn) playTurn();
+    }
 
+    /**
+     * Sub-function of playTurn use to handle a dead entity
+     * @param actor killer of the entity (the one who target the cause of the exception)
+     * @param entities list of the waiting entities
+     */
+    private void deadHandler(Entity actor, ArrayList<Entity> entities){
+        Entity dead = actor.getTarget();
+        entities.remove(dead);
+        if(dead.getClass()==Hero.class) {
+            heroes.remove(dead);
+            if (heroes.isEmpty()) loss();
+        }
+        if (dead.getClass()==Enemy.class) {
+            try {
+                enemies.remove(dead);
+                loots.addAll(((Enemy) dead).loot());
+                xpearn =+ ((Enemy) dead).xp;
+                if (enemies.isEmpty()) win();
+            }catch (Exception ee){
+                ee.printStackTrace();
+            }
+        }
     }
 }

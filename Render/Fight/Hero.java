@@ -8,6 +8,10 @@ public class Hero extends Entity{
         super(hp, armor, speed, damage, name, skin);
     }
 
+    public void grantXp(double xp){
+        //TODO !
+    }
+
     @Override
     public void act() throws Exception {
 

@@ -1,9 +1,9 @@
 package Universal.Stuff;
 
 public abstract class Item {
-    private String name;
-    private String description;
-    private int number = 1;
+    protected String name;
+    protected String description;
+    protected int number = 1;
 
     public void add(int number){
         this.number=+number;
