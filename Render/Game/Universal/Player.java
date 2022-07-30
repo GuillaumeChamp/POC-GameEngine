@@ -11,7 +11,7 @@ public class Player {
     private TriggerList progression;
 
     public Player(){
-        skin = new PlayerMovement("Skin/player.png", 1);
         location = new Level(false);
+        skin = new PlayerMovement("Skin/player.png", 1,location);
     }
 }
