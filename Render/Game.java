@@ -1,6 +1,6 @@
 import Game.Universal.Player;
-import Game.OutDoor.Scene_outside;
-import Game.Universal.Game_Scene;
+import Graphic.Scene.Scene_outside;
+import Graphic.Scene.Game_Scene;
 import Sound.BackgroundMusic;
 import javafx.application.Application;
 import javafx.stage.*;
@@ -29,6 +29,7 @@ public class Game extends Application {
         Game_Scene ActiveScene = new Scene_outside(root,player,canvas,defaultWidth,defaultHeight);
         theStage.setScene(ActiveScene);
         BackgroundMusic.playMusique("Out of Hand.wav");
+        theStage.setMaximized(true);
 
         new AnimationTimer() {
             public void handle(long currentNanoTime) {

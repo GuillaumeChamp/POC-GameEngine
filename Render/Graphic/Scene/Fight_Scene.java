@@ -1,6 +1,9 @@
-package Game.Fight;
+package Graphic.Scene;
 
-import Game.Universal.Game_Scene;
+import Game.Fight.Enemy;
+import Game.Fight.Entity;
+import Game.Fight.Hero;
+import Graphic.Scene.Game_Scene;
 import Game.Universal.Stuff.Inventory;
 import Game.Universal.Stuff.Item;
 import javafx.scene.Group;

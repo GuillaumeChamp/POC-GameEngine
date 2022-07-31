@@ -1,6 +1,6 @@
 package Game.Fight;
 
-import Game.Universal.AnimatedImage;
+import Graphic.Elements.AnimatedImage;
 
 public class Hero extends Entity{
     public boolean isInFront = true;

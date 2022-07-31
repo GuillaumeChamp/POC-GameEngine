@@ -1,6 +1,6 @@
 package Game.Fight;
 
-import Game.Universal.AnimatedImage;
+import Graphic.Elements.AnimatedImage;
 import Game.Universal.Stuff.Item;
 import Game.Universal.Stuff.Loot;
 

@@ -1,7 +1,7 @@
 package Game.Fight;
 
 import Game.Fight.Alteration.Alteration;
-import Game.Universal.AnimatedImage;
+import Graphic.Elements.AnimatedImage;
 
 import java.util.ArrayList;
 
@@ -46,7 +46,7 @@ public abstract class Entity {
     /**
      * Need to be call at the end of the turn
      */
-    protected void RemoveAlteration(){
+    public void RemoveAlteration(){
         state.removeIf(Alteration::checkEnd);
     }
     /**

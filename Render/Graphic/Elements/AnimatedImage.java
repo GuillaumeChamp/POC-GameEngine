@@ -1,5 +1,6 @@
-package Game.Universal;
+package Graphic.Elements;
 
+import Game.Universal.ImageCropper;
 import javafx.scene.image.*;
 
 public class AnimatedImage

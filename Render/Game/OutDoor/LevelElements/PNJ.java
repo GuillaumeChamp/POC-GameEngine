@@ -1,5 +1,7 @@
 package Game.OutDoor.LevelElements;
 
+import Graphic.Elements.MovingAnimatedImage;
+
 public class PNJ {
     protected String name;
     protected MovingAnimatedImage entity;

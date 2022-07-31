@@ -1,10 +1,8 @@
-package Game.OutDoor;
-import Game.Universal.Game_Scene;
+package Graphic.Scene;
+import Graphic.Scene.Game_Scene;
 import Game.Universal.Player;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 

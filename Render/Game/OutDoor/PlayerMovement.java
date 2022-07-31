@@ -1,6 +1,6 @@
 package Game.OutDoor;
 
-import Game.OutDoor.LevelElements.MovingAnimatedImage;
+import Graphic.Elements.MovingAnimatedImage;
 
 public class PlayerMovement extends MovingAnimatedImage {
     double XLim;

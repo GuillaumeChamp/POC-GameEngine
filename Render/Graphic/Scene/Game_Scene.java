@@ -1,4 +1,4 @@
-package Game.Universal;
+package Graphic.Scene;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;

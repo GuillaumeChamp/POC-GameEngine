@@ -1,6 +1,5 @@
-package Game.OutDoor.LevelElements;
-import Game.Universal.AnimatedImage;
-import javafx.scene.image.*;
+package Graphic.Elements;
+import Graphic.Elements.AnimatedImage;
 
 public class MovingAnimatedImage extends AnimatedImage {
     protected double positionX;
