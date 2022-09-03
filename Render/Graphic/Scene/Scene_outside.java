@@ -1,20 +1,23 @@
 package Graphic.Scene;
+import Graphic.Interface.Menu;
 import Graphic.Scene.Game_Scene;
 import Game.Universal.Player;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
 public class Scene_outside extends Game_Scene {
     private final Player player;
-    private final ArrayList<String> input = new ArrayList<>(); //store the keyboard input
+    public final ArrayList<String> input = new ArrayList<>(); //store the keyboard input
 
     public Scene_outside(Group root, Player player, Canvas canvas, double width, double height){
         super(root, canvas);
         this.player=player;
         Game_Scene.height = height;
         Game_Scene.width = width;
+        isFocus=true;
     }
     private void walk(){
         player.skin.setVelocity(0,0);
@@ -50,9 +53,13 @@ public class Scene_outside extends Game_Scene {
         //TODO : Switch to Fight
         System.out.println("new Fight");
     }
+    public GraphicsContext Gc(){
+        return gc;
+    }
 
     @Override
     public void Tick(double t){
+        if(!isFocus) return;
         walk();
         double printLimitX = 800;
         double printLimitY = 450;
@@ -79,6 +86,8 @@ public class Scene_outside extends Game_Scene {
                         input.add(code);
                     if (code.equals("R"))
                         System.out.println(player.skin.getPositionX() +"  "+ player.skin.getPositionY());
+                    if (code.equals("ENTER"))
+                        new Menu(this);
                 }
         );
 

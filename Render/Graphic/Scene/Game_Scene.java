@@ -11,6 +11,7 @@ public abstract class Game_Scene extends Scene {
     static public double height = Screen.getPrimary().getBounds().getHeight() - 70;
     static protected GraphicsContext gc;
     static protected Canvas canvas;
+    static protected boolean isFocus;
 
     public Game_Scene(Parent parent, Canvas canvas) {
         super(parent);
@@ -23,6 +24,10 @@ public abstract class Game_Scene extends Scene {
     }
 
     abstract public void Tick(double t);
+
+    public static void setIsFocus(boolean isFocus) {
+        Game_Scene.isFocus = isFocus;
+    }
 
     abstract public void addController();
 

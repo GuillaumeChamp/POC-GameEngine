@@ -31,6 +31,7 @@ public class Game extends Application {
         BackgroundMusic.playMusique("Out of Hand.wav");
         theStage.setMaximized(true);
 
+
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
