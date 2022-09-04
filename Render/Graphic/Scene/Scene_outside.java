@@ -1,4 +1,5 @@
 package Graphic.Scene;
+import Graphic.Graphic_Const;
 import Graphic.Interface.Menu;
 import Graphic.Scene.Game_Scene;
 import Game.Universal.Player;
@@ -60,9 +61,13 @@ public class Scene_outside extends Game_Scene {
     @Override
     public void Tick(double t){
         if(!isFocus) return;
+        this.paint(t);
         walk();
-        double printLimitX = 800;
-        double printLimitY = 450;
+        }
+        //Fixme : graphic miss position
+    private void paint(double t){
+        double printLimitX = Graphic_Const.H_TILES_PER_SCREEN*Graphic_Const.H_TILES_SIZE;
+        double printLimitY = Graphic_Const.V_TILES_PER_SCREEN*Graphic_Const.V_TILES_SIZE;
         double offSetLandX = player.skin.getPositionX() - (printLimitX/2);
         double offSetLandY = player.skin.getPositionY() - (printLimitY/2);
 
@@ -73,9 +78,15 @@ public class Scene_outside extends Game_Scene {
         if (offSetLandX >= player.location.getSizeX()-printLimitX) offSetLandX = player.location.getSizeX()-printLimitX;
         if (offSetLandY < 0) offSetLandY = 0;
         if (offSetLandY >= player.location.getSizeY()-printLimitY) offSetLandY = player.location.getSizeY()-printLimitY;
-        //Fixme : define a Level print size
-        gc.drawImage(player.location.getBackground(),offSetLandX,offSetLandY, printLimitX, printLimitY,0,0, printLimitX *xRatio,yRatio* printLimitY);
-        gc.drawImage(player.skin.getFrame(t), (player.skin.getPositionX() - offSetLandX)*xRatio, (player.skin.getPositionY()-offSetLandY)*yRatio,40*xRatio,40*yRatio);
+
+        gc.drawImage(player.location.getBackground(),offSetLandX,offSetLandY, printLimitX, printLimitY,0,0, printLimitX*xRatio,yRatio*printLimitY);
+
+        gc.drawImage(player.skin.getFrame(t), (player.skin.getPositionX() - offSetLandX)*xRatio, (player.skin.getPositionY()-offSetLandY)*yRatio,Graphic_Const.H_PLAYER_TILE_SIZE*xRatio*Graphic_Const.H_TILES_SIZE,Graphic_Const.V_PLAYER_TILE_SIZE*yRatio*Graphic_Const.V_TILES_SIZE);
+    }
+
+    @Override
+    protected void clear() {
+        paint(System.nanoTime());
     }
 
     @Override

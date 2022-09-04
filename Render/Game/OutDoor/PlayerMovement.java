@@ -16,8 +16,8 @@ public class PlayerMovement extends MovingAnimatedImage {
         positionX += velocityX;
         if (0 > positionX) positionX = 0;
         if (0 > positionY) positionY = 0;
-        if (positionX > XLim-40) positionX = 2048 - 40;
-        if (positionY > YLim- 40) positionY = 1660 - 40;
+        if (positionX > XLim-40) positionX = XLim - 40;
+        if (positionY > YLim- 40) positionY = YLim - 40;
     }
     public void changeLevel(Level newLevel,double x,double y){
         XLim = newLevel.getSizeX();

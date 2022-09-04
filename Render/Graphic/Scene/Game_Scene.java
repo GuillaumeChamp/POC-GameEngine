@@ -45,7 +45,7 @@ public abstract class Game_Scene extends Scene {
         });
     }
 
-    private void clear() {
+    protected void clear() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 }
