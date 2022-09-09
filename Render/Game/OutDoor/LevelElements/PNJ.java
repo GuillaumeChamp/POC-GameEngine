@@ -1,6 +1,7 @@
 package Game.OutDoor.LevelElements;
 
 import Graphic.Elements.MovingAnimatedImage;
+import Graphic.Graphic_Const;
 
 public class PNJ {
     protected String name;
@@ -10,10 +11,10 @@ public class PNJ {
     protected int[] startX;
     protected int[] startY;
 
-
+    //TODO add multi sprite option
     public PNJ(String name, String skinName, String[] dialogue, int[] startX, int[] startY) {
         this.name = name;
-        this.entity = new MovingAnimatedImage(skinName,1);
+        this.entity = new MovingAnimatedImage(skinName,1, Graphic_Const.SPRITE_WIDTH,Graphic_Const.SPRITE_HEIGHT,0);
         this.dialogue = dialogue;
         this.startX = startX;
         this.startY = startY;

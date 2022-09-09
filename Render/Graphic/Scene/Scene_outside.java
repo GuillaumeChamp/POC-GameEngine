@@ -63,21 +63,22 @@ public class Scene_outside extends Game_Scene {
         if(!isFocus) return;
         this.paint(t);
         walk();
-        }
-        //Fixme : graphic miss position
+    }
     private void paint(double t){
         double printLimitX = Graphic_Const.H_TILES_PER_SCREEN*Graphic_Const.H_TILES_SIZE;
         double printLimitY = Graphic_Const.V_TILES_PER_SCREEN*Graphic_Const.V_TILES_SIZE;
-        double offSetLandX = player.skin.getPositionX() - (printLimitX/2);
-        double offSetLandY = player.skin.getPositionY() - (printLimitY/2);
-
+        //Calculate ratio to allow resize
         double xRatio = width/ printLimitX;
-
         double yRatio = height/ printLimitY;
+
+        double offSetLandX = player.skin.getPositionX() - (printLimitX/2)-Graphic_Const.H_PLAYER_TILE_SIZE*xRatio/2;
+        double offSetLandY = player.skin.getPositionY() - (printLimitY/2)-Graphic_Const.V_PLAYER_TILE_SIZE*yRatio/2;
+
+
         if (offSetLandX < 0) offSetLandX = 0;
-        if (offSetLandX >= player.location.getSizeX()-printLimitX) offSetLandX = player.location.getSizeX()-printLimitX;
+        if (offSetLandX >= player.location.getSizeX()-printLimitX-Graphic_Const.H_PLAYER_TILE_SIZE) offSetLandX = player.location.getSizeX()-printLimitX-Graphic_Const.H_PLAYER_TILE_SIZE;
         if (offSetLandY < 0) offSetLandY = 0;
-        if (offSetLandY >= player.location.getSizeY()-printLimitY) offSetLandY = player.location.getSizeY()-printLimitY;
+        if (offSetLandY >= player.location.getSizeY()-printLimitY-Graphic_Const.V_PLAYER_TILE_SIZE) offSetLandY = player.location.getSizeY()-printLimitY-Graphic_Const.V_PLAYER_TILE_SIZE;
 
         gc.drawImage(player.location.getBackground(),offSetLandX,offSetLandY, printLimitX, printLimitY,0,0, printLimitX*xRatio,yRatio*printLimitY);
 

@@ -25,7 +25,7 @@ public abstract class Entity {
         this.armor = armor;
         this.speed = speed;
         this.damage = damage;
-        this.skin = new AnimatedImage(name);
+        this.skin = skin;
     }
 
     public Entity getTarget() {

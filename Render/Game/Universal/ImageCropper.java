@@ -16,10 +16,11 @@ public class ImageCropper {
     public static Image[] crop(String path,int animationId,int XStep,int YStep){
         Image file = new Image(path);
         int column = (int) (file.getWidth()/XStep);
+        if (column<0) column=1;
         Image[] output = new Image[column];
         PixelReader reader = file.getPixelReader();
         for (int l=0;l<column;l++) {
-            output[l] = new WritableImage(reader, XStep * l,YStep * animationId, XStep, YStep);
+            output[l] = new WritableImage(reader, XStep * l,YStep*animationId, XStep, YStep);
         }
         return output;
     }

@@ -1,13 +1,12 @@
 package Game.OutDoor;
 
 import Graphic.Elements.MovingAnimatedImage;
+import Graphic.Graphic_Const;
 
 public class PlayerMovement extends MovingAnimatedImage {
-    double XLim;
-    double YLim;
 
     public PlayerMovement(String path, double duration,Level level) {
-        super(path, duration);
+        super(path,duration, Graphic_Const.SPRITE_WIDTH,Graphic_Const.SPRITE_HEIGHT,0);
         XLim = level.getSizeX();
         YLim = level.getSizeY();
     }

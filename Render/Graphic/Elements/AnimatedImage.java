@@ -8,11 +8,17 @@ public class AnimatedImage
     protected Image[] frames;
     protected double duration;
 
-    public AnimatedImage(String path){
-        frames = ImageCropper.crop(path,0,40,40);
+    /**
+     * Create a sprite which can move
+     * @param path spritesheet path
+     * @param width image width
+     * @param length image length
+     * @param animationId row to load
+     */
+    public AnimatedImage(String path,int width,int length,int animationId){
+        frames = ImageCropper.crop(path,animationId,width,length);
         duration = 1;
     }
-
     public Image getFrame(double time)
     {
         int index = (int)((time % (frames.length * duration)) / duration);
