@@ -66,7 +66,7 @@ public class Fight_Scene extends Game_Scene {
         //TODO : swap the scene and go back to an int and maybe lose money
     }
     @Override
-    public void Tick(double t) {
+    public void Tick() {
         //TODO : make the attack selection
         if (endOfTurn) playTurn();
     }
@@ -74,6 +74,11 @@ public class Fight_Scene extends Game_Scene {
     @Override
     public void addController() {
         //TODO : load control map
+    }
+
+    @Override
+    public void exit() {
+
     }
 
     /**
@@ -92,7 +97,7 @@ public class Fight_Scene extends Game_Scene {
             try {
                 enemies.remove(dead);
                 loots.addAll(((Enemy) dead).loot());
-                xpearn =+ ((Enemy) dead).xp;
+                xpearn += ((Enemy) dead).xp;
                 if (enemies.isEmpty()) win();
             }catch (Exception ee){
                 ee.printStackTrace();

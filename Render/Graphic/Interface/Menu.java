@@ -1,28 +1,24 @@
 package Graphic.Interface;
 
 import Graphic.Scene.Scene_outside;
-import javafx.scene.Scene;
-import javafx.scene.SubScene;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-
-public class Menu {
-    public static boolean isFocus;
+public class Menu implements Controllable {
     private final Scene_outside scene;
     private final Options options;
-    public Menu(Scene_outside scene){
-        options = new Options();
+    private final Controllable caller;
+    private final Rectangle2D position;
+    public Menu(Scene_outside scene, Controllable caller, Rectangle2D position, Options.MenuType type){
+        options = new Options(type);
         this.scene=scene;
-        Scene_outside.setIsFocus(false);
-        OptionControls.addController(scene,this);
-        isFocus = true;
+        this.caller=caller;
+        this.position=position;
+        this.addController();
         printMenu();
     }
     public void changeOption(){
@@ -33,26 +29,40 @@ public class Menu {
     public void performAction(){
         String action = options.options.get(options.selected);
         if (action.contains("Test")) System.out.println("Test Menu");
-        if (action.contains("Exit")) {exitMenu();
-        }
+        if (action.contains("Heroes")) new Menu(scene,this,new Rectangle2D(10,10,100,70), Options.MenuType.test);
+        if (action.contains("Exit")) exitMenu();
     }
+    //TODO : rework printing for responsive design
     private void printMenu(){
+        int POLICE_SIZE=30;
+        //clear the old one
+        scene.paint();
+        //paint the new one
         GraphicsContext gc = scene.Gc();
         gc.setFill(Color.BLUE);
-        gc.fillRect(0,0,100,100);
+        gc.fillRect(position.getMinX(),position.getMinY(), position.getWidth(),position.getHeight());
         gc.setFill(Color.BLACK);
         for (int i=0;i<options.options.size();i++){
             if (i==options.selected)
-                gc.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,30));
+                gc.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,POLICE_SIZE));
             else
-                gc.setFont(Font.font("Lucida Sans Unicode", FontWeight.NORMAL, FontPosture.REGULAR,30));
-            gc.fillText(options.options.get(i),0,30+i*30);
+                gc.setFont(Font.font("Lucida Sans Unicode", FontWeight.NORMAL, FontPosture.REGULAR,POLICE_SIZE));
+            gc.fillText(options.options.get(i), position.getMinX(), position.getMinY()+POLICE_SIZE*(i+1));
         }
     }
     public void exitMenu(){
-        isFocus=false;
-        Scene_outside.setIsFocus(true);
-        scene.addController();
+        caller.addController();
+        caller.exit();
     }
 
+    @Override
+    public void addController() {
+        Scene_outside.setIsFocus(false);
+        OptionControls.addController(scene,this);
+    }
+
+    @Override
+    public void exit() {
+        printMenu();
+    }
 }

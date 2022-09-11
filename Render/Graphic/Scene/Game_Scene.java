@@ -1,12 +1,13 @@
 package Graphic.Scene;
 
+import Graphic.Interface.Controllable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Screen;
 
-public abstract class Game_Scene extends Scene {
+public abstract class Game_Scene extends Scene implements Controllable {
     static public double width = Screen.getPrimary().getBounds().getWidth();
     static public double height = Screen.getPrimary().getBounds().getHeight() - 70;
     static protected GraphicsContext gc;
@@ -23,13 +24,11 @@ public abstract class Game_Scene extends Scene {
         this.addController();
     }
 
-    abstract public void Tick(double t);
+    abstract public void Tick();
 
     public static void setIsFocus(boolean isFocus) {
         Game_Scene.isFocus = isFocus;
     }
-
-    abstract public void addController();
 
     /**
      * Add the resizeable behaviour to the GameScene

@@ -3,6 +3,7 @@ package Graphic.Interface;
 import java.util.ArrayList;
 
 public class Options {
+    public enum MenuType {main,test}
     ArrayList<String> options;
     int selected;
 
@@ -11,7 +12,21 @@ public class Options {
         options.add("Test");
         options.add("Exit");
         selected=0;
-
+    }
+    public Options(MenuType macro){
+        switch (macro) {
+            case main -> {
+                options = new ArrayList<>();
+                options.add("Heroes");
+                options.add("Exit");
+            }
+            case test -> {
+                options = new ArrayList<>();
+                options.add("Test");
+                options.add("Exit");
+            }
+        }
+        selected=0;
     }
     public void changeSelected(String sens){
         if (sens.equals("UP")) selected++;

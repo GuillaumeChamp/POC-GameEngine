@@ -34,8 +34,7 @@ public class Game extends Application {
 
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
-                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-                ActiveScene.Tick(t);
+                ActiveScene.Tick();
             }
         }.start();
         theStage.show();

@@ -1,15 +1,17 @@
 package Graphic.Scene;
+
+import Game.Universal.Player;
 import Graphic.Graphic_Const;
 import Graphic.Interface.Menu;
-import Graphic.Scene.Game_Scene;
-import Game.Universal.Player;
+import Graphic.Interface.Options;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
-public class Scene_outside extends Game_Scene {
+public class Scene_outside extends Game_Scene{
     private final Player player;
     public final ArrayList<String> input = new ArrayList<>(); //store the keyboard input
 
@@ -59,12 +61,13 @@ public class Scene_outside extends Game_Scene {
     }
 
     @Override
-    public void Tick(double t){
+    public void Tick(){
         if(!isFocus) return;
-        this.paint(t);
+        this.paint();
         walk();
     }
-    private void paint(double t){
+    public void paint(){
+        double t = System.nanoTime() / 1000000000.0;
         double printLimitX = Graphic_Const.H_TILES_PER_SCREEN*Graphic_Const.H_TILES_SIZE;
         double printLimitY = Graphic_Const.V_TILES_PER_SCREEN*Graphic_Const.V_TILES_SIZE;
         //Calculate ratio to allow resize
@@ -87,7 +90,7 @@ public class Scene_outside extends Game_Scene {
 
     @Override
     protected void clear() {
-        paint(System.nanoTime());
+        paint();
     }
 
     @Override
@@ -99,7 +102,7 @@ public class Scene_outside extends Game_Scene {
                     if (code.equals("R"))
                         System.out.println(player.skin.getPositionX() +"  "+ player.skin.getPositionY());
                     if (code.equals("ENTER"))
-                        new Menu(this);
+                        new Menu(this,this,new Rectangle2D(0,0,100,70), Options.MenuType.main);
                 }
         );
 
@@ -107,5 +110,10 @@ public class Scene_outside extends Game_Scene {
             String code = e.getCode().toString();
             input.remove(code);
         });
+    }
+
+    @Override
+    public void exit() {
+        isFocus=true;
     }
 }
