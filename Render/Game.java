@@ -21,10 +21,7 @@ public class Game extends Application {
         final double defaultWidth = Screen.getPrimary().getBounds().getWidth()-borderXSize;
         final double defaultHeight = Screen.getPrimary().getBounds().getHeight()-borderYSize;
 
-        final long startNanoTime = System.nanoTime();
-
         root.getChildren().add(canvas);
-        //BackgroundMusic sound = new BackgroundMusic("Mystic_Forest");
 
         Game_Scene ActiveScene = new Scene_outside(root,player,canvas,defaultWidth,defaultHeight);
         theStage.setScene(ActiveScene);

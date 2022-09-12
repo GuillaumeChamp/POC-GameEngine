@@ -7,7 +7,10 @@ import Graphic.Interface.Options;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
 
@@ -57,29 +60,49 @@ public class Scene_outside extends Game_Scene{
         //TODO : Switch to Fight
         System.out.println("new Fight");
     }
-    public GraphicsContext Gc(){
-        return gc;
-    }
 
     public void Tick(){
         super.Tick();
+        if(lastMenu==null) {
+            paintScene();
+            return;
+        }
+        paintMenu();
     }
 
     @Override
     public void performControl() {
         if (lastMenu==null) {
             walk();
-            paint();
             return;
         }
-        paintMenu(lastMenu);
+        lastMenu.changeOption();
     }
 
-    private void paintMenu(Menu lastMenu) {
-        lastMenu.printMenu();
+    private void paintMenu() {
+        double printLimitX = Graphic_Const.H_TILES_PER_SCREEN*Graphic_Const.H_TILES_SIZE;
+        double printLimitY = Graphic_Const.V_TILES_PER_SCREEN*Graphic_Const.V_TILES_SIZE;
+        //Calculate ratio to allow resize
+        double xRatio = width/ printLimitX;
+        double yRatio = height/ printLimitY;
+        paintScene();
+        int POLICE_SIZE=30;
+        double effectivePolice = POLICE_SIZE*Math.max(xRatio,yRatio);
+        Rectangle2D position = lastMenu.getPosition();
+        Options options = lastMenu.getOptions();
+        gc.setFill(Color.BLUE);
+        gc.fillRect(position.getMinX(),position.getMinY(), position.getWidth()*Math.max(xRatio,yRatio),position.getHeight()*Math.max(xRatio,yRatio));
+        gc.setFill(Color.BLACK);
+        for (int i=0;i<options.options.size();i++){
+            if (i==options.getSelected())
+                gc.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR,effectivePolice));
+            else
+                gc.setFont(Font.font("Verdana", FontWeight.NORMAL, FontPosture.REGULAR,effectivePolice));
+            gc.fillText(options.options.get(i), position.getMinX(), position.getMinY()+effectivePolice*(i+1));
+        }
     }
 
-    public void paint(){
+    public void paintScene(){
         double t = System.nanoTime() / 1000000000.0;
         double printLimitX = Graphic_Const.H_TILES_PER_SCREEN*Graphic_Const.H_TILES_SIZE;
         double printLimitY = Graphic_Const.V_TILES_PER_SCREEN*Graphic_Const.V_TILES_SIZE;
@@ -103,7 +126,7 @@ public class Scene_outside extends Game_Scene{
 
     @Override
     protected void clear() {
-        paint();
+        paintScene();
     }
 
     @Override
@@ -115,7 +138,7 @@ public class Scene_outside extends Game_Scene{
                     if (code.equals("R"))
                         System.out.println(player.skin.getPositionX() +"  "+ player.skin.getPositionY());
                     if (code.equals("ENTER"))
-                        new Menu(this,this,new Rectangle2D(0,0,100,70), Options.MenuType.main);
+                        new Menu(this,this,new Rectangle2D(0,0,150,70), Options.MenuType.main);
                 }
         );
 
