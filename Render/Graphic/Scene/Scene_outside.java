@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class Scene_outside extends Game_Scene{
     private final Player player;
+    public Menu lastMenu = null;
     public final ArrayList<String> input = new ArrayList<>(); //store the keyboard input
 
     public Scene_outside(Group root, Player player, Canvas canvas, double width, double height){
@@ -60,12 +61,24 @@ public class Scene_outside extends Game_Scene{
         return gc;
     }
 
-    @Override
     public void Tick(){
-        if(!isFocus) return;
-        this.paint();
-        walk();
+        super.Tick();
     }
+
+    @Override
+    public void performControl() {
+        if (lastMenu==null) {
+            walk();
+            paint();
+            return;
+        }
+        paintMenu(lastMenu);
+    }
+
+    private void paintMenu(Menu lastMenu) {
+        lastMenu.printMenu();
+    }
+
     public void paint(){
         double t = System.nanoTime() / 1000000000.0;
         double printLimitX = Graphic_Const.H_TILES_PER_SCREEN*Graphic_Const.H_TILES_SIZE;
@@ -114,6 +127,6 @@ public class Scene_outside extends Game_Scene{
 
     @Override
     public void exit() {
-        isFocus=true;
+        lastMenu = null;
     }
 }

@@ -24,7 +24,10 @@ public abstract class Game_Scene extends Scene implements Controllable {
         this.addController();
     }
 
-    abstract public void Tick();
+    public void Tick(){
+        performControl();
+    }
+    abstract public void performControl();
 
     public static void setIsFocus(boolean isFocus) {
         Game_Scene.isFocus = isFocus;

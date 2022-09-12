@@ -19,12 +19,11 @@ public class Menu implements Controllable {
         this.caller=caller;
         this.position=position;
         this.addController();
-        printMenu();
+        scene.lastMenu = this;
     }
     public void changeOption(){
         if (scene.input.contains("UP")) options.changeSelected("DOWN");
         if (scene.input.contains("DOWN")) options.changeSelected("UP");
-        printMenu();
     }
     public void performAction(){
         String action = options.options.get(options.selected);
@@ -33,7 +32,7 @@ public class Menu implements Controllable {
         if (action.contains("Exit")) exitMenu();
     }
     //TODO : rework printing for responsive design
-    private void printMenu(){
+    public void printMenu(){
         int POLICE_SIZE=30;
         //clear the old one
         scene.paint();
@@ -63,6 +62,6 @@ public class Menu implements Controllable {
 
     @Override
     public void exit() {
-        printMenu();
+        scene.lastMenu=this;
     }
 }

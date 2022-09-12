@@ -72,6 +72,11 @@ public class Fight_Scene extends Game_Scene {
     }
 
     @Override
+    public void performControl() {
+
+    }
+
+    @Override
     public void addController() {
         //TODO : load control map
     }
