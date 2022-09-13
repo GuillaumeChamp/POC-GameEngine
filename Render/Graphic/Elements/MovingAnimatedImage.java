@@ -1,5 +1,4 @@
 package Graphic.Elements;
-import Graphic.Elements.AnimatedImage;
 
 public class MovingAnimatedImage extends AnimatedImage {
     protected double positionX;
@@ -33,7 +32,7 @@ public class MovingAnimatedImage extends AnimatedImage {
         this.velocityY += velocityY;
     }
     public void update() {
-        //TODO : fixme must follow the patrol of the npc
+        //TODO : must follow the patrol of the npc
         positionY += velocityY;
         positionX += velocityX;
         if (0 > positionX) positionX = 0;

@@ -1,3 +1,5 @@
+package Graphic;
+
 import Game.Universal.Player;
 import Graphic.Scene.Scene_outside;
 import Graphic.Scene.Game_Scene;
@@ -10,6 +12,7 @@ import javafx.animation.AnimationTimer;
 
 public class Game extends Application {
     static Canvas canvas;
+    private static Game_Scene activeScene;
     public void start(Stage theStage) {
         canvas = new Canvas(Game_Scene.width,Game_Scene.height);
         theStage.setTitle("Render");
@@ -23,18 +26,21 @@ public class Game extends Application {
 
         root.getChildren().add(canvas);
 
-        Game_Scene ActiveScene = new Scene_outside(root,player,canvas,defaultWidth,defaultHeight);
-        theStage.setScene(ActiveScene);
+        activeScene = new Scene_outside(root,player,canvas,defaultWidth,defaultHeight);
+        theStage.setScene(activeScene);
         BackgroundMusic.playMusique("Out of Hand.wav");
         theStage.setMaximized(true);
 
 
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
-                ActiveScene.Tick();
+                activeScene.Tick();
             }
         }.start();
         theStage.show();
+    }
+    public static void changeScene(Game_Scene scene){
+        activeScene=scene;
     }
 
     public static void main(String[] args) {

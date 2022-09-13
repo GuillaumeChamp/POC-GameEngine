@@ -1,6 +1,7 @@
 package Graphic.Scene;
 
 import Game.Universal.Player;
+import Graphic.Game;
 import Graphic.Graphic_Const;
 import Graphic.Interface.Menu;
 import Graphic.Interface.Options;
@@ -17,11 +18,13 @@ import java.util.ArrayList;
 public class Scene_outside extends Game_Scene{
     private final Player player;
     public Menu lastMenu = null;
+    private int lastFight;
     public final ArrayList<String> input = new ArrayList<>(); //store the keyboard input
 
     public Scene_outside(Group root, Player player, Canvas canvas, double width, double height){
         super(root, canvas);
         this.player=player;
+        lastFight=0;
         Game_Scene.height = height;
         Game_Scene.width = width;
         isFocus=true;
@@ -50,6 +53,9 @@ public class Scene_outside extends Game_Scene{
     }
 
     private void triggerCombat(){
+        lastFight++;
+        int FIGHT_PROTECTION = 50;
+        if (lastFight< FIGHT_PROTECTION) return;
         if (!player.location.isPeaceful()){
             double rng = Math.random();
             if (rng>0.95) Combat();
@@ -57,8 +63,9 @@ public class Scene_outside extends Game_Scene{
     }
 
     private void Combat(){
+        Game.changeScene(new Fight_Scene(new Group(),this));
         //TODO : Switch to Fight
-        System.out.println("new Fight");
+        lastFight=0;
     }
 
     public void Tick(){

@@ -3,29 +3,35 @@ package Graphic.Scene;
 import Game.Fight.Enemy;
 import Game.Fight.Entity;
 import Game.Fight.Hero;
-import Graphic.Scene.Game_Scene;
+import Graphic.Elements.AnimatedImage;
+import Graphic.Game;
 import Game.Universal.Stuff.Inventory;
 import Game.Universal.Stuff.Item;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
 public class Fight_Scene extends Game_Scene {
     //TODO : might hold enemy but not the hero except on static field
-    private final Image background = new Image(".//Resources/OutDoor.Level/town_land.png");
+
+    private final Image background = new Image("Level//town_land.png");
     private ArrayList<Enemy> enemies;
-    private ArrayList<Hero> heroes;
+    private final ArrayList<Hero> heroes= new ArrayList<>();
     private boolean endOfTurn;
-    private ArrayList<Item> loots;
+    private final ArrayList<Item> loots = new ArrayList<>();
     private double xpearn = 0;
+    private final Scene_outside back;
 
     /**
      * Create a new scene to be ready for a fight
      * @param root root of the app
      */
-    public Fight_Scene(Group root){
+    public Fight_Scene(Group root,Scene_outside back){
         super(root,null);
+        this.back=back;
+        heroes.add(new Hero(100,10,10,10,"hero",new AnimatedImage("Skin//player.png",40,40,0)));
         //TODO make a loader of hero
         //TODO read the list of enemy and load them
     }
@@ -57,18 +63,26 @@ public class Fight_Scene extends Game_Scene {
         for (Entity e : enemies) e.RemoveAlteration();
     }
     private void win(){
-        //TODO : swap the scene and grant loot and xps
         int number = heroes.size();
         for (Hero hero : heroes) hero.grantXp(xpearn/number);
         for (Item item : loots) Inventory.add(item);
+        Game.changeScene(back);
     }
     private void loss(){
-        //TODO : swap the scene and go back to an int and maybe lose money
+        Game.changeScene(back);
+        //TODO : Set map and location tp game over
     }
     @Override
     public void Tick() {
-        //TODO : make the attack selection
+        super.Tick();
+        draw();
+        xpearn++;
+        if (xpearn >800) win(); //TODO Remove test
         if (endOfTurn) playTurn();
+    }
+    private void draw(){
+        //TODO enhance to add responsiveness
+        gc.drawImage(background,0,0);
     }
 
     @Override
@@ -83,7 +97,6 @@ public class Fight_Scene extends Game_Scene {
 
     @Override
     public void exit() {
-
     }
 
     /**
