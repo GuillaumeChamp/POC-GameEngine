@@ -2,6 +2,9 @@ package Graphic.Elements;
 
 import Game.Universal.ImageCropper;
 import javafx.scene.image.*;
+import javafx.scene.image.Image;
+
+
 
 public class AnimatedImage
 {
