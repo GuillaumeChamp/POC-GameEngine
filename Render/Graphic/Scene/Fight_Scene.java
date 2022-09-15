@@ -9,7 +9,6 @@ import Game.Universal.Stuff.Inventory;
 import Game.Universal.Stuff.Item;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class Fight_Scene extends Game_Scene {
     //TODO : might hold enemy but not the hero except on static field
 
     private final Image background = new Image("Level//town_land.png");
-    private ArrayList<Enemy> enemies;
+    private final ArrayList<Enemy> enemies = new ArrayList<>();
     private final ArrayList<Hero> heroes= new ArrayList<>();
     private boolean endOfTurn;
     private final ArrayList<Item> loots = new ArrayList<>();
@@ -31,7 +30,10 @@ public class Fight_Scene extends Game_Scene {
     public Fight_Scene(Group root,Scene_outside back){
         super(root,null);
         this.back=back;
-        heroes.add(new Hero(100,10,10,10,"hero",new AnimatedImage("Skin//player.png",40,40,0)));
+        long rand = 1+Math.round((Math.random() * 100-1)/25);
+        heroes.add(new Hero(100,10,10,10,"hero",new AnimatedImage("Skin//player.png",64,64,0)));
+        for (int i =0;i<rand;i++)
+            enemies.add(new Enemy(100,10,10,10,"chou",new AnimatedImage("Skin//player.png",64,64,0),4,null));
         //TODO make a loader of hero
         //TODO read the list of enemy and load them
     }
@@ -81,8 +83,27 @@ public class Fight_Scene extends Game_Scene {
         if (endOfTurn) playTurn();
     }
     private void draw(){
-        //TODO enhance to add responsiveness
-        gc.drawImage(background,0,0);
+        //Ratio of entity pictures
+        double xRatio = 0.1*width;
+        double yRatio = 0.1*height;
+        double ratio = Math.min(xRatio,yRatio);
+        double enemiesPosX = 0;
+        double enemiesPosY = 0;
+        double heroesPosX = width/2;
+        double heroesPosY = height - yRatio;
+
+        gc.drawImage(background,0,0,back.getWidth(), back.getHeight());
+        double t = System.nanoTime() / 1000000000.0;
+        double enemyOffSet = 0;
+        double heroOffSet = 0;
+        for(Enemy e : enemies){
+            gc.drawImage(e.getSkin(t),enemiesPosX+enemyOffSet,enemiesPosY,ratio,ratio);
+            enemyOffSet = enemyOffSet + width/5;
+        }
+        for(Hero h : heroes){
+            gc.drawImage(h.getSkin(t),heroesPosX,heroesPosY,ratio,ratio);
+            heroOffSet = heroOffSet +width/5;
+        }
     }
 
     @Override

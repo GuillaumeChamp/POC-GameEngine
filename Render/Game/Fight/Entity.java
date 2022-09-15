@@ -2,6 +2,7 @@ package Game.Fight;
 
 import Game.Fight.Alteration.Alteration;
 import Graphic.Elements.AnimatedImage;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
@@ -125,4 +126,8 @@ public abstract class Entity {
         entity.takeDamage(damage*damageBuff);
     }
     public abstract void act() throws Exception;
+
+    public Image getSkin(double t) {
+        return skin.getFrame(t);
+    }
 }
