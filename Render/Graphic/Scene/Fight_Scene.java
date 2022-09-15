@@ -30,7 +30,7 @@ public class Fight_Scene extends Game_Scene {
     public Fight_Scene(Group root,Scene_outside back){
         super(root,null);
         this.back=back;
-        long rand = 1+Math.round((Math.random() * 100-1)/25);
+        int rand = (int) (Math.ceil((Math.random()*100-1)/25));
         heroes.add(new Hero(100,10,10,10,"hero",new AnimatedImage("Skin//player.png",64,64,0)));
         for (int i =0;i<rand;i++)
             enemies.add(new Enemy(100,10,10,10,"chou",new AnimatedImage("Skin//player.png",64,64,0),4,null));
