@@ -17,6 +17,7 @@ public abstract class Entity {
     protected double armorBuff = 1;
     protected double damageBuff = 1;
     protected Entity target;
+    protected FightActions action;
     protected ArrayList<Alteration> state;
     //TODO add new behaviour to include elemental aspect and speelcasting stat
     public Entity(int hpMax, int armor, int speed, int damage, String name, AnimatedImage skin) {
@@ -48,6 +49,7 @@ public abstract class Entity {
      * Need to be call at the end of the turn
      */
     public void RemoveAlteration(){
+        if (state==null) return;
         state.removeIf(Alteration::checkEnd);
     }
     /**
@@ -69,6 +71,9 @@ public abstract class Entity {
         if (hp <1) {
             this.died();
         }
+    }
+    protected void attack(Entity target) throws Exception{
+        target.takeDamage(this.damage*this.damageBuff);
     }
 
     public void heal(double amount) {
@@ -96,25 +101,25 @@ public abstract class Entity {
      * Sub function for buff or un-buff an entity according to a specific rule
      * @param type  which multiplier have to be modify
      * @param up    true if it's a buff
-     * @throws Exception Throw if the rule can't be follow
+     * @throws GameException Throw if the rule can't be follow
      */
-    private void appliedBuff(double type,boolean up) throws Exception{
+    private void appliedBuff(double type,boolean up) throws GameException{
         if (up & type<2){
             type += 0.5;
         }
         if (!up & type>0.5){
             type -= 0.25;
         }
-        if((up&type>=2) | (!up&type<=0.5)) throw new Exception("Can't change");
+        if((up&type>=2) | (!up&type<=0.5)) throw new GameException("Can't change");
     }
 
     /**
      * Allow to know if the opponent is dead and kill him
-     * @throws Exception only if the entity is dead
+     * @throws GameException only if the entity is dead
      */
-    public void died() throws Exception {
+    public void died() throws GameException {
         this.hpMax =0;
-        throw new Exception("EndOfEntity");
+        throw new GameException("EndOfEntity");
     }
 
     /**
@@ -125,9 +130,18 @@ public abstract class Entity {
     public void Attack(Entity entity) throws Exception {
         entity.takeDamage(damage*damageBuff);
     }
-    public abstract void act() throws Exception;
+    public abstract void performDeterminedAction() throws Exception;
 
     public Image getSkin(double t) {
         return skin.getFrame(t);
+    }
+
+    public double getPercentHp() {
+        return hp/hpMax;
+    }
+
+    protected void endOfAttack(){
+        this.target=null;
+        this.action =null;
     }
 }

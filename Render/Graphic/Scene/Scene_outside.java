@@ -19,7 +19,7 @@ public class Scene_outside extends Game_Scene{
     private final Player player;
     public Menu lastMenu = null;
     private int lastFight;
-    public final ArrayList<String> input = new ArrayList<>(); //store the keyboard input
+
 
     public Scene_outside(Group root, Player player, Canvas canvas, double width, double height){
         super(root, canvas);
@@ -28,6 +28,7 @@ public class Scene_outside extends Game_Scene{
         Game_Scene.height = height;
         Game_Scene.width = width;
         isFocus=true;
+        this.addController();
     }
     private void walk(){
         player.skin.setVelocity(0,0);

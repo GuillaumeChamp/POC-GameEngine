@@ -3,7 +3,7 @@ package Graphic.Interface;
 import java.util.ArrayList;
 
 public class Options {
-    public enum MenuType {main,test}
+    public enum MenuType {main,test,fight}
     public ArrayList<String> options;
     int selected;
 
@@ -18,6 +18,10 @@ public class Options {
                 options = new ArrayList<>();
                 options.add("Test");
                 options.add("Exit");
+            }
+            case fight -> {
+                options = new ArrayList<>();
+                options.add("Attack");
             }
         }
         selected=0;

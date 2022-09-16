@@ -2,16 +2,22 @@ package Graphic.Scene;
 
 import Game.Fight.Enemy;
 import Game.Fight.Entity;
+import Game.Fight.FightActions;
 import Game.Fight.Hero;
 import Graphic.Elements.AnimatedImage;
 import Graphic.Game;
 import Game.Universal.Stuff.Inventory;
 import Game.Universal.Stuff.Item;
+import Graphic.Interface.Menu;
+import Graphic.Interface.Options;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
+//TODO : Rebuild to delete scene aspect
 public class Fight_Scene extends Game_Scene {
     //TODO : might hold enemy but not the hero except on static field
 
@@ -20,7 +26,7 @@ public class Fight_Scene extends Game_Scene {
     private final ArrayList<Hero> heroes= new ArrayList<>();
     private boolean endOfTurn;
     private final ArrayList<Item> loots = new ArrayList<>();
-    private double xpearn = 0;
+    private double xpEarn = 0;
     private final Scene_outside back;
 
     /**
@@ -31,11 +37,12 @@ public class Fight_Scene extends Game_Scene {
         super(root,null);
         this.back=back;
         int rand = (int) (Math.ceil((Math.random()*100-1)/25));
-        heroes.add(new Hero(100,10,10,10,"hero",new AnimatedImage("Skin//player.png",64,64,0)));
+        heroes.add(new Hero(30,5,10,10,"hero",new AnimatedImage("Skin//player.png",64,64,0)));
         for (int i =0;i<rand;i++)
-            enemies.add(new Enemy(100,10,10,10,"chou",new AnimatedImage("Skin//player.png",64,64,0),4,null));
+            enemies.add(new Enemy(30,1,10,10,"chou",new AnimatedImage("Skin//player.png",64,64,0),4,null));
         //TODO make a loader of hero
         //TODO read the list of enemy and load them
+        this.addController();
     }
 
     private Entity determineOrder(ArrayList<Entity> entities){
@@ -48,17 +55,17 @@ public class Fight_Scene extends Game_Scene {
 
     private void playTurn(){
         endOfTurn = false;
-        ArrayList<Entity> entities = new ArrayList<>();
-        for(Enemy e: enemies) e.SelectTarget(heroes);
-        entities.addAll(enemies);
-        entities.addAll(heroes);
-        while (!entities.isEmpty()){
-            Entity actor = determineOrder(entities);
-            entities.remove(actor);
+        ArrayList<Entity> entitiesToPlay = new ArrayList<>();
+        for(Enemy e: enemies) e.SelectAttack(heroes,enemies);
+        entitiesToPlay.addAll(enemies);
+        entitiesToPlay.addAll(heroes);
+        while (!entitiesToPlay.isEmpty()){
+            Entity actor = determineOrder(entitiesToPlay);
+            entitiesToPlay.remove(actor);
             try {
-                actor.act();
+                actor.performDeterminedAction();
             }catch (Exception e){
-                if (e.getMessage().equals("EndOfEntity")) deadHandler(actor,entities);
+                if (e.getMessage().equals("EndOfEntity")) deadHandler(actor,entitiesToPlay);
             }
         }
         for (Entity e : heroes) e.RemoveAlteration();
@@ -66,8 +73,9 @@ public class Fight_Scene extends Game_Scene {
     }
     private void win(){
         int number = heroes.size();
-        for (Hero hero : heroes) hero.grantXp(xpearn/number);
-        for (Item item : loots) Inventory.add(item);
+        for (Hero hero : heroes) hero.grantXp(xpEarn /number);
+        if (!loots.isEmpty())for (Item item : loots) Inventory.add(item);
+        back.addController();
         Game.changeScene(back);
     }
     private void loss(){
@@ -78,8 +86,6 @@ public class Fight_Scene extends Game_Scene {
     public void Tick() {
         super.Tick();
         draw();
-        xpearn++;
-        if (xpearn >800) win(); //TODO Remove test
         if (endOfTurn) playTurn();
     }
     private void draw(){
@@ -98,12 +104,29 @@ public class Fight_Scene extends Game_Scene {
         double heroOffSet = 0;
         for(Enemy e : enemies){
             gc.drawImage(e.getSkin(t),enemiesPosX+enemyOffSet,enemiesPosY,ratio,ratio);
+            //draw health bar
+            setColor(e);
+            gc.fillRect(enemiesPosX+enemyOffSet,enemiesPosY+ratio*1.1,e.getPercentHp()*ratio,ratio/4);
             enemyOffSet = enemyOffSet + width/5;
         }
         for(Hero h : heroes){
             gc.drawImage(h.getSkin(t),heroesPosX,heroesPosY,ratio,ratio);
+            //draw health bar
+            setColor(h);
+            gc.fillRect(heroesPosX+heroOffSet,heroesPosY-ratio*1.1,h.getPercentHp()+ratio,ratio/4);
             heroOffSet = heroOffSet +width/5;
         }
+    }
+    private void setColor(Entity entity){
+        if (entity.getPercentHp()>0.50) {
+            gc.setFill(Color.GREEN);
+            return;
+        }
+        if (entity.getPercentHp()>0.30) {
+            gc.setFill(Color.ORANGE);
+            return;
+        }
+        gc.setFill(Color.RED);
     }
 
     @Override
@@ -113,7 +136,24 @@ public class Fight_Scene extends Game_Scene {
 
     @Override
     public void addController() {
-        //TODO : load control map
+        back.setOnKeyPressed(e -> {
+                    String code = e.getCode().toString();
+                    if (!input.contains(code))
+                        input.add(code);
+                    if (code.equals("ENTER")){
+                        for (Hero h : heroes){
+                            h.defineAttack(FightActions.ATTACK,enemies.get(0));
+                        }
+                        endOfTurn=true;
+                    }
+
+                }
+        );
+
+        back.setOnKeyReleased(e -> {
+            String code = e.getCode().toString();
+            input.remove(code);
+        });
     }
 
     @Override
@@ -135,8 +175,8 @@ public class Fight_Scene extends Game_Scene {
         if (dead.getClass()==Enemy.class) {
             try {
                 enemies.remove(dead);
-                loots.addAll(((Enemy) dead).loot());
-                xpearn += ((Enemy) dead).xp;
+                loots.add(((Enemy) dead).loot());
+                xpEarn += ((Enemy) dead).xp;
                 if (enemies.isEmpty()) win();
             }catch (Exception ee){
                 ee.printStackTrace();

@@ -7,12 +7,15 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Screen;
 
+import java.util.ArrayList;
+
 public abstract class Game_Scene extends Scene implements Controllable {
     static public double width = Screen.getPrimary().getBounds().getWidth();
     static public double height = Screen.getPrimary().getBounds().getHeight() - 70;
     static protected GraphicsContext gc;
     static protected Canvas canvas;
     static protected boolean isFocus;
+    public final static ArrayList<String> input = new ArrayList<>(); //store the keyboard input
 
     public Game_Scene(Parent parent, Canvas canvas) {
         super(parent);
@@ -21,7 +24,6 @@ public abstract class Game_Scene extends Scene implements Controllable {
             gc = canvas.getGraphicsContext2D();
         }
         this.addResizeable();
-        this.addController();
     }
 
     public void Tick(){

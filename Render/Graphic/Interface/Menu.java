@@ -1,5 +1,6 @@
 package Graphic.Interface;
 
+import Graphic.Scene.Game_Scene;
 import Graphic.Scene.Scene_outside;
 import javafx.geometry.Rectangle2D;
 
@@ -20,8 +21,8 @@ public class Menu implements Controllable {
     public void changeOption(){
         long scrollingDelay = 100000000;
         if(System.nanoTime()<scrolling+scrollingDelay) return;
-        if (scene.input.contains("UP")) options.changeSelected("DOWN");
-        if (scene.input.contains("DOWN")) options.changeSelected("UP");
+        if (Game_Scene.input.contains("UP")) options.changeSelected("DOWN");
+        if (Game_Scene.input.contains("DOWN")) options.changeSelected("UP");
         scrolling=System.nanoTime();
     }
     public void performAction(){

@@ -1,13 +1,14 @@
 package Graphic.Interface;
 
+import Graphic.Scene.Game_Scene;
 import Graphic.Scene.Scene_outside;
 
 public class OptionControls {
     public static void addController(Scene_outside scene,Menu menu){
         scene.setOnKeyPressed(e -> {
                     String code = e.getCode().toString();
-                    if (!scene.input.contains(code)) {
-                        scene.input.add(code);
+                    if (!Game_Scene.input.contains(code)) {
+                        Game_Scene.input.add(code);
                         menu.changeOption();
                         menu.scrolling=System.nanoTime();
                     }
@@ -19,8 +20,8 @@ public class OptionControls {
 
         scene.setOnKeyReleased(e -> {
             String code = e.getCode().toString();
-            scene.input.remove(code);
-            if (scene.input.isEmpty()) menu.scrolling=Long.MAX_VALUE;
+            Game_Scene.input.remove(code);
+            if (Game_Scene.input.isEmpty()) menu.scrolling=Long.MAX_VALUE;
         });
     }
 

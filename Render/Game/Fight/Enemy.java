@@ -16,12 +16,18 @@ public class Enemy extends Entity{
         this.loots = loots;
     }
 
+    public void SelectAttack(ArrayList<Hero> heroes,ArrayList<Enemy> enemies){
+        //TODO : implements other possibles actions
+        action =FightActions.ATTACK;
+        SelectTargetSimpleAttack(heroes);
+    }
+
     /**
      * Select randomly a target among heroes according to its position
      * complex code and loop to be fair
      * @param heroes list of all heroes alive
      */
-    public void SelectTarget (ArrayList<Hero> heroes){
+    private void SelectTargetSimpleAttack(ArrayList<Hero> heroes){
         target=null;
         boolean front = false;
         double rng = Math.random();
@@ -39,16 +45,16 @@ public class Enemy extends Entity{
         }
     }
 
-    public ArrayList<Item> loot(){
-        ArrayList<Item> ans = new ArrayList<>();
+    public Item loot(){
         double rng = Math.random();
+        if (loots==null) return null;
         for (Loot loot : loots)
-            if (loot.tryToLoot(rng)) ans.add(loot);
-        return ans;
+            if (loot.tryToLoot(rng)) return loot;
+        return null;
     }
 
     @Override
-    public void act() throws Exception {
+    public void performDeterminedAction() throws Exception {
         Attack(target);
     }
 }
