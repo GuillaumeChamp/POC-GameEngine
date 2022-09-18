@@ -65,7 +65,6 @@ public class Scene_outside extends Game_Scene{
 
     private void Combat(){
         Game.changeScene(new Fight_Scene(new Group(),this));
-        //TODO : Switch to Fight
         lastFight=0;
     }
 

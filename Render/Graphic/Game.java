@@ -1,6 +1,7 @@
 package Graphic;
 
 import Game.Universal.Player;
+import Game.Universal.PlayerData;
 import Graphic.Scene.Scene_outside;
 import Graphic.Scene.Game_Scene;
 import Sound.BackgroundMusic;
@@ -16,7 +17,7 @@ public class Game extends Application {
     public void start(Stage theStage) {
         canvas = new Canvas(Game_Scene.width,Game_Scene.height);
         theStage.setTitle("Render");
-        Player player = new Player();
+
         Group root = new Group();
         int borderXSize = 0;
         int borderYSize = 70;
@@ -26,12 +27,18 @@ public class Game extends Application {
 
         root.getChildren().add(canvas);
 
-        activeScene = new Scene_outside(root,player,canvas,defaultWidth,defaultHeight);
+        activeScene = new Scene_outside(root, PlayerData.getPlayer(),canvas,defaultWidth,defaultHeight);
         theStage.setScene(activeScene);
         BackgroundMusic.playMusique("Out of Hand.wav");
         theStage.setMaximized(true);
 
-
+        theStage.setOnCloseRequest(e->{
+            try {
+                PlayerData.save();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
                 activeScene.Tick();

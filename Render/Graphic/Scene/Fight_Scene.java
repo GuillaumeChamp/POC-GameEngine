@@ -8,9 +8,6 @@ import Graphic.Elements.AnimatedImage;
 import Graphic.Game;
 import Game.Universal.Stuff.Inventory;
 import Game.Universal.Stuff.Item;
-import Graphic.Interface.Menu;
-import Graphic.Interface.Options;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -20,7 +17,6 @@ import java.util.ArrayList;
 //TODO : Rebuild to delete scene aspect
 public class Fight_Scene extends Game_Scene {
     //TODO : might hold enemy but not the hero except on static field
-
     private final Image background = new Image("Level//town_land.png");
     private final ArrayList<Enemy> enemies = new ArrayList<>();
     private final ArrayList<Hero> heroes= new ArrayList<>();

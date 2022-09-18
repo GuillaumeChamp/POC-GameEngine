@@ -9,6 +9,8 @@ import javafx.scene.image.*;
 import java.util.ArrayList;
 
 public class Level {
+    public static String path="Level//";
+    private String name;
     private final Image background;
     private final double sizeX;
     private final double sizeY;
@@ -19,7 +21,8 @@ public class Level {
     //TODO : delete this
     public Level(boolean peaceful){
         this.peaceful = peaceful;
-        background = new Image("Level//town_land.png");
+        background = new Image(path+"town_land.png");
+        name="town_land.png";
         sizeY = background.getHeight();
         sizeX = background.getWidth();
     }
@@ -27,7 +30,7 @@ public class Level {
         this.peaceful = peaceful;
         sizeY = vTile*Graphic_Const.V_TILES_SIZE;
         sizeX = hTile*Graphic_Const.H_TILES_SIZE;
-        background = new Image("Level//town_land.png",sizeX,sizeY,false,false);
+        background = new Image(path+"town_land.png",sizeX,sizeY,false,false);
     }
 
     public ArrayList<Warp> getTp() {
@@ -52,5 +55,9 @@ public class Level {
 
     public Image getBackground() {
         return background;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -26,4 +26,8 @@ public class PlayerMovement extends MovingAnimatedImage {
         positionX=x;
         positionY=y;
     }
+    public void setPosition(double x, double y){
+        this.positionX=x;
+        this.positionY=y;
+    }
 }

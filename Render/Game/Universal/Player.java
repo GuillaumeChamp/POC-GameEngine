@@ -14,4 +14,9 @@ public class Player {
         location = new Level(false,128,72);
         skin = new PlayerMovement("Skin/player.png", 1,location);
     }
+    public Player(String x,String y,String level){
+        location = new Level(false,128,72);
+        skin = new PlayerMovement("Skin/player.png", 1,location);
+        skin.setPosition(Double.parseDouble(x),Double.parseDouble(y));
+    }
 }
