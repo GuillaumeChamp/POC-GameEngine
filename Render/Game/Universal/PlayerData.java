@@ -1,17 +1,17 @@
 package Game.Universal;
 
-import Game.Universal.Stuff.Inventory;
+import Game.Fight.Hero;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Properties;
 
 public class PlayerData {
     static String FILENAME = "Resources//Data//save.properties";
+    static String HERO_REP = "Resources//Data//heroes";
     static Player player;
-
+    private static ArrayList<Hero> heroes;
     public PlayerData(){
 
     }
@@ -45,5 +45,59 @@ public class PlayerData {
     public static Player getPlayer(){
         if (player==null) load();
         return player;
+    }
+
+    public static ArrayList<Hero> getHeroes() {
+        if (heroes == null) {
+            try {
+                loadHeroes();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return heroes;
+    }
+
+    private static void loadHeroes() throws IOException, ClassNotFoundException {
+        File heroRep = new File(HERO_REP);
+        heroes = new ArrayList<>();
+        if (!heroRep.exists() || Objects.requireNonNull(heroRep.listFiles()).length<1) {
+            createHeroes();
+            return;
+        }
+        for (File f : Objects.requireNonNull(heroRep.listFiles())) {
+            FileInputStream fileInputStream = new FileInputStream(HERO_REP+File.separator+ f.getName());
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            Hero h = (Hero) objectInputStream.readObject();
+            heroes.add(h);
+        }
+    }
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private static void createHeroes() {
+        File heroRep = new File(HERO_REP);
+        heroRep.mkdirs();
+        addHero("1");
+
+    }
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static void addHero(String name) {
+        Hero hero = new Hero(35,3,10,10,name);
+        heroes.add(hero);
+        File heroFile = new File(HERO_REP+File.separator+name+".hero");
+        if (heroFile.exists()) heroFile.delete();
+        try {
+            heroFile.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void saveHeroes() throws IOException {
+        for (Hero h:heroes) {
+            if (h==null) continue;
+            FileOutputStream outputStream = new FileOutputStream(HERO_REP+File.separator+ h.getName()+".hero");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(h);
+            objectOutputStream.flush();
+        }
     }
 }

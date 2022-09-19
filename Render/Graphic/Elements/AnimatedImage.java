@@ -4,9 +4,10 @@ import Game.Universal.ImageCropper;
 import javafx.scene.image.*;
 import javafx.scene.image.Image;
 
+import java.io.Serializable;
 
 
-public class AnimatedImage
+public class AnimatedImage implements Serializable
 {
     protected Image[] frames;
     protected double duration;

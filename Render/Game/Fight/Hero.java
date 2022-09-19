@@ -2,11 +2,18 @@ package Game.Fight;
 
 import Graphic.Elements.AnimatedImage;
 
-public class Hero extends Entity{
+import java.io.Serializable;
+
+public class Hero extends Entity implements Serializable {
     public boolean isInFront = true;
-    public Hero(int hp, int armor, int speed, int damage, String name, AnimatedImage skin) {
-        super(hp, armor, speed, damage, name, skin);
+    public Hero(int hp, int armor, int speed, int damage, String name) {
+        super(hp, armor, speed, damage, name, createSkin(name));
     }
+
+    public static AnimatedImage createSkin(String name) {
+        return new AnimatedImage("Skin//player.png",64,64,0);
+    }
+
     public void defineAttack(FightActions actions, Entity target){
         this.action =actions;
         this.target=target;
@@ -17,7 +24,9 @@ public class Hero extends Entity{
             this.attack(target);
         }
     }
-
+    public void setSkin() {
+        this.skin = Hero.createSkin(name);
+    }
     public void grantXp(double xp){
         //TODO !
     }

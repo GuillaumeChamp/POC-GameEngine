@@ -4,6 +4,7 @@ import Game.Fight.Enemy;
 import Game.Fight.Entity;
 import Game.Fight.FightActions;
 import Game.Fight.Hero;
+import Game.Universal.PlayerData;
 import Graphic.Elements.AnimatedImage;
 import Graphic.Game;
 import Game.Universal.Stuff.Inventory;
@@ -19,7 +20,7 @@ public class Fight_Scene extends Game_Scene {
     //TODO : might hold enemy but not the hero except on static field
     private final Image background = new Image("Level//town_land.png");
     private final ArrayList<Enemy> enemies = new ArrayList<>();
-    private final ArrayList<Hero> heroes= new ArrayList<>();
+    private final ArrayList<Hero> heroes;
     private boolean endOfTurn;
     private final ArrayList<Item> loots = new ArrayList<>();
     private double xpEarn = 0;
@@ -33,10 +34,10 @@ public class Fight_Scene extends Game_Scene {
         super(root,null);
         this.back=back;
         int rand = (int) (Math.ceil((Math.random()*100-1)/25));
-        heroes.add(new Hero(30,5,10,10,"hero",new AnimatedImage("Skin//player.png",64,64,0)));
+        heroes = PlayerData.getHeroes();
         for (int i =0;i<rand;i++)
             enemies.add(new Enemy(30,1,10,10,"chou",new AnimatedImage("Skin//player.png",64,64,0),4,null));
-        //TODO make a loader of hero
+        for (Hero h : heroes) h.setSkin();
         //TODO read the list of enemy and load them
         this.addController();
     }
@@ -76,7 +77,7 @@ public class Fight_Scene extends Game_Scene {
     }
     private void loss(){
         Game.changeScene(back);
-        //TODO : Set map and location tp game over
+        PlayerData.addHero("1");
     }
     @Override
     public void Tick() {
@@ -109,7 +110,7 @@ public class Fight_Scene extends Game_Scene {
             gc.drawImage(h.getSkin(t),heroesPosX,heroesPosY,ratio,ratio);
             //draw health bar
             setColor(h);
-            gc.fillRect(heroesPosX+heroOffSet,heroesPosY-ratio*1.1,h.getPercentHp()+ratio,ratio/4);
+            gc.fillRect(heroesPosX+heroOffSet,heroesPosY-ratio*1.1,h.getPercentHp()*ratio,ratio/4);
             heroOffSet = heroOffSet +width/5;
         }
     }

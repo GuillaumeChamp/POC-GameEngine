@@ -4,20 +4,21 @@ import Game.Fight.Alteration.Alteration;
 import Graphic.Elements.AnimatedImage;
 import javafx.scene.image.Image;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Entity {
+public abstract class Entity implements Serializable {
     protected double hpMax;
     protected double hp;
     protected double armor;
     protected double speed;
     protected double damage;
     protected String name;
-    protected AnimatedImage skin;
+    protected transient AnimatedImage skin;
     protected double armorBuff = 1;
     protected double damageBuff = 1;
-    protected Entity target;
-    protected FightActions action;
+    protected transient Entity target;
+    protected transient FightActions action;
     protected ArrayList<Alteration> state;
     //TODO add new behaviour to include elemental aspect and speelcasting stat
     public Entity(int hpMax, int armor, int speed, int damage, String name, AnimatedImage skin) {
@@ -144,4 +145,8 @@ public abstract class Entity {
         this.target=null;
         this.action =null;
     }
+    public String getName(){
+        return this.name;
+    }
+
 }

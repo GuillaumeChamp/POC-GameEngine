@@ -1,15 +1,15 @@
 package Graphic;
 
-import Game.Universal.Player;
 import Game.Universal.PlayerData;
-import Graphic.Scene.Scene_outside;
 import Graphic.Scene.Game_Scene;
+import Graphic.Scene.Scene_outside;
 import Sound.BackgroundMusic;
-import javafx.application.Application;
-import javafx.stage.*;
-import javafx.scene.*;
-import javafx.scene.canvas.*;
 import javafx.animation.AnimationTimer;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 public class Game extends Application {
     static Canvas canvas;
@@ -34,6 +34,7 @@ public class Game extends Application {
 
         theStage.setOnCloseRequest(e->{
             try {
+                PlayerData.saveHeroes();
                 PlayerData.save();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
