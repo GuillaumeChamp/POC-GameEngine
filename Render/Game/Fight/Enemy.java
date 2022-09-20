@@ -54,7 +54,8 @@ public class Enemy extends Entity{
     }
 
     @Override
-    public void performDeterminedAction() throws Exception {
-        Attack(target);
+    public boolean performDeterminedAction() {
+        if (target==null) return false;
+        return attack(target);
     }
 }
