@@ -33,10 +33,10 @@ public class Fight_Scene extends Game_Scene {
     public Fight_Scene(Group root,Scene_outside back){
         super(root,null);
         this.back=back;
-        int rand = (int) (Math.ceil((Math.random()*100-1)/25));
+        int rand = 1+ (int) (Math.ceil((Math.random()*100-1)/50));
         heroes = PlayerData.getHeroes();
         for (int i =0;i<rand;i++)
-            enemies.add(new Enemy(30,1,10,10,"chou",new AnimatedImage("Skin//player.png",64,64,0),4,null));
+            enemies.add(new Enemy(16,1,8,10,"chou",new AnimatedImage("Skin//player.png",64,64,0),10,null));
         for (Hero h : heroes) h.setSkin();
         //TODO read the list of enemy and load them
         this.addController();
@@ -56,28 +56,26 @@ public class Fight_Scene extends Game_Scene {
         for(Enemy e: enemies) e.SelectAttack(heroes,enemies);
         entitiesToPlay.addAll(enemies);
         entitiesToPlay.addAll(heroes);
+        entitiesToPlay.removeIf(entity -> !entity.isAlive());
         while (!entitiesToPlay.isEmpty()){
             Entity actor = determineOrder(entitiesToPlay);
             entitiesToPlay.remove(actor);
-            try {
-                actor.performDeterminedAction();
-            }catch (Exception e){
-                if (e.getMessage().equals("EndOfEntity")) deadHandler(actor,entitiesToPlay);
-            }
+                if(actor.performDeterminedAction()) deadHandler(actor,entitiesToPlay);
         }
         for (Entity e : heroes) e.RemoveAlteration();
         for (Entity e : enemies) e.RemoveAlteration();
     }
     private void win(){
         int number = heroes.size();
-        for (Hero hero : heroes) hero.grantXp(xpEarn /number);
+        for (Hero hero : heroes) hero.grantXp((int) (xpEarn /number));
         if (!loots.isEmpty())for (Item item : loots) Inventory.add(item);
         back.addController();
         Game.changeScene(back);
     }
     private void loss(){
+        System.out.println("defeat no xp acquired");
+        for (Hero h : heroes) h.fullHeal();
         Game.changeScene(back);
-        PlayerData.addHero("1");
     }
     @Override
     public void Tick() {
@@ -100,17 +98,21 @@ public class Fight_Scene extends Game_Scene {
         double enemyOffSet = 0;
         double heroOffSet = 0;
         for(Enemy e : enemies){
-            gc.drawImage(e.getSkin(t),enemiesPosX+enemyOffSet,enemiesPosY,ratio,ratio);
-            //draw health bar
-            setColor(e);
-            gc.fillRect(enemiesPosX+enemyOffSet,enemiesPosY+ratio*1.1,e.getPercentHp()*ratio,ratio/4);
+            if (e.isAlive()) {
+                gc.drawImage(e.getSkin(t),enemiesPosX+enemyOffSet,enemiesPosY,ratio,ratio);
+                //draw health bar
+                setColor(e);
+                gc.fillRect(enemiesPosX+enemyOffSet,enemiesPosY+ratio*1.1,e.getPercentHp()*ratio,ratio/4);
+            }
+
             enemyOffSet = enemyOffSet + width/5;
         }
         for(Hero h : heroes){
-            gc.drawImage(h.getSkin(t),heroesPosX,heroesPosY,ratio,ratio);
-            //draw health bar
-            setColor(h);
-            gc.fillRect(heroesPosX+heroOffSet,heroesPosY-ratio*1.1,h.getPercentHp()*ratio,ratio/4);
+            if (h.isAlive()) {
+                gc.drawImage(h.getSkin(t), heroesPosX, heroesPosY, ratio, ratio);
+                setColor(h);
+                gc.fillRect(heroesPosX + heroOffSet, heroesPosY - ratio * 1.1, h.getPercentHp() * ratio, ratio / 4);
+            }
             heroOffSet = heroOffSet +width/5;
         }
     }
@@ -139,7 +141,7 @@ public class Fight_Scene extends Game_Scene {
                         input.add(code);
                     if (code.equals("ENTER")){
                         for (Hero h : heroes){
-                            h.defineAttack(FightActions.ATTACK,enemies.get(0));
+                            h.defineAttack(FightActions.ATTACK,enemies.stream().filter(Entity::isAlive).findFirst().get());
                         }
                         endOfTurn=true;
                     }
@@ -159,22 +161,26 @@ public class Fight_Scene extends Game_Scene {
 
     /**
      * Sub-function of playTurn use to handle a dead entity
-     * @param actor killer of the entity (the one who target the cause of the exception)
+     * @param actor killer of the entity
      * @param entities list of the waiting entities
      */
     private void deadHandler(Entity actor, ArrayList<Entity> entities){
         Entity dead = actor.getTarget();
         entities.remove(dead);
         if(dead.getClass()==Hero.class) {
-            heroes.remove(dead);
-            if (heroes.isEmpty()) loss();
+            for (Hero h : heroes) {
+                if (h.isAlive()) return;
+            }
+            loss();
         }
         if (dead.getClass()==Enemy.class) {
             try {
-                enemies.remove(dead);
                 loots.add(((Enemy) dead).loot());
-                xpEarn += ((Enemy) dead).xp;
-                if (enemies.isEmpty()) win();
+                xpEarn = xpEarn + ((Enemy) dead).xp;
+                for (Enemy e: enemies) {
+                    if (e.isAlive()) return;
+                }
+                win();
             }catch (Exception ee){
                 ee.printStackTrace();
             }

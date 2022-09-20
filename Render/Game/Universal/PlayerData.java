@@ -49,14 +49,15 @@ public class PlayerData {
         if (heroes == null) {
             try {
                 loadHeroes();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
         return heroes;
     }
 
-    private static void loadHeroes() throws IOException, ClassNotFoundException {
+    private static void loadHeroes() throws IOException {
         File heroRep = new File(HERO_REP);
         heroes = new ArrayList<>();
         if (!heroRep.exists() || Objects.requireNonNull(heroRep.listFiles()).length<1) {
@@ -66,8 +67,14 @@ public class PlayerData {
         for (File f : Objects.requireNonNull(heroRep.listFiles())) {
             FileInputStream fileInputStream = new FileInputStream(HERO_REP+File.separator+ f.getName());
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            Hero h = (Hero) objectInputStream.readObject();
-            heroes.add(h);
+            try {
+                Hero h = (Hero) objectInputStream.readObject();
+                h.debuff();
+                heroes.add(h);
+            }catch (InvalidClassException | ClassNotFoundException e){
+                System.out.println("class Hero have been changed, create a new one");
+                addHero(f.getName().replace(".hero",""));
+            }
         }
     }
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -79,12 +86,13 @@ public class PlayerData {
     }
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void addHero(String name) {
-        Hero hero = new Hero(35,3,10,10,name);
+        Hero hero = new Hero(name);
         heroes.add(hero);
         File heroFile = new File(HERO_REP+File.separator+name+".hero");
         if (heroFile.exists()) heroFile.delete();
         try {
             heroFile.createNewFile();
+            saveHeroes();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

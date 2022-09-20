@@ -20,6 +20,7 @@ public abstract class Entity implements Serializable {
     protected transient Entity target;
     protected transient FightActions action;
     protected ArrayList<Alteration> state;
+    protected boolean isAlive = true;
     //TODO add new behaviour to include elemental aspect and speelcasting stat
     public Entity(int hpMax, int armor, int speed, int damage, String name, AnimatedImage skin) {
         this.name = name;
@@ -73,9 +74,6 @@ public abstract class Entity implements Serializable {
             this.died();
         }
     }
-    protected void attack(Entity target) throws Exception{
-        target.takeDamage(this.damage*this.damageBuff);
-    }
 
     public void heal(double amount) {
         if (amount<0) return;
@@ -119,19 +117,25 @@ public abstract class Entity implements Serializable {
      * @throws GameException only if the entity is dead
      */
     public void died() throws GameException {
-        this.hpMax =0;
+        this.hp =0;
+        isAlive=false;
         throw new GameException("EndOfEntity");
     }
 
     /**
-     * Inflict damage from this entity
-     * @param entity target
-     * @throws Exception target is Dead
+     * Attack an entity
+     * @param entity targeted entitiy
+     * @return true if the target died
      */
-    public void Attack(Entity entity) throws Exception {
-        entity.takeDamage(damage*damageBuff);
+    public boolean attack(Entity entity) {
+        try {
+            entity.takeDamage(damage*damageBuff);
+        } catch (Exception e) {
+            return true;
+        }
+        return false;
     }
-    public abstract void performDeterminedAction() throws Exception;
+    public abstract boolean performDeterminedAction();
 
     public Image getSkin(double t) {
         return skin.getFrame(t);
@@ -149,4 +153,11 @@ public abstract class Entity implements Serializable {
         return this.name;
     }
 
+    public boolean isAlive() {
+        return isAlive;
+    }
+    public void debuff(){
+        this.damageBuff=1;
+        this.armorBuff=1;
+    }
 }
