@@ -15,8 +15,8 @@ public abstract class Entity implements Serializable {
     protected double damage;
     protected String name;
     protected transient AnimatedImage skin;
-    protected double armorBuff = 1;
-    protected double damageBuff = 1;
+    protected transient double armorBuff = 1;
+    protected transient double damageBuff = 1;
     protected transient Entity target;
     protected transient FightActions action;
     protected ArrayList<Alteration> state;

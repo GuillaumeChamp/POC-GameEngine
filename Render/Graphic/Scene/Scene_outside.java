@@ -13,7 +13,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
-import java.util.ArrayList;
 
 public class Scene_outside extends Game_Scene{
     private final Player player;

@@ -10,7 +10,7 @@ public class OptionControls {
                     if (!Game_Scene.input.contains(code)) {
                         Game_Scene.input.add(code);
                         menu.changeOption();
-                        menu.scrolling=System.nanoTime();
+                        menu.scrolling=0;
                     }
                     if (code.equals("ENTER"))
                         menu.exitMenu();

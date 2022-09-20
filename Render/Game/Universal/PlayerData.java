@@ -12,9 +12,7 @@ public class PlayerData {
     static String HERO_REP = "Resources//Data//heroes";
     static Player player;
     private static ArrayList<Hero> heroes;
-    public PlayerData(){
 
-    }
     private static void load(){
         Properties props = new Properties();
         if(! new File(FILENAME).exists()) new File(FILENAME);
@@ -92,6 +90,7 @@ public class PlayerData {
         }
     }
     public static void saveHeroes() throws IOException {
+        if (heroes==null) return;
         for (Hero h:heroes) {
             if (h==null) continue;
             FileOutputStream outputStream = new FileOutputStream(HERO_REP+File.separator+ h.getName()+".hero");

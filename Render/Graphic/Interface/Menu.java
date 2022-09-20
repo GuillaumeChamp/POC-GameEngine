@@ -19,8 +19,8 @@ public class Menu implements Controllable {
         scene.lastMenu = this;
     }
     public void changeOption(){
-        long scrollingDelay = 100000000;
-        if(System.nanoTime()<scrolling+scrollingDelay) return;
+        long scrollingDelay = 150000000;
+        if(System.nanoTime()-scrolling<scrollingDelay) return;
         if (Game_Scene.input.contains("UP")) options.changeSelected("DOWN");
         if (Game_Scene.input.contains("DOWN")) options.changeSelected("UP");
         scrolling=System.nanoTime();

@@ -18,6 +18,14 @@ public class Options {
                 options = new ArrayList<>();
                 options.add("Test");
                 options.add("Exit");
+                options.add("Exit");
+                options.add("Exit");
+                options.add("Exit");
+                options.add("Exit");
+                options.add("Exit");
+                options.add("Exit");
+
+
             }
             case fight -> {
                 options = new ArrayList<>();
