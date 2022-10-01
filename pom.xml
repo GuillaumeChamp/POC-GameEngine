@@ -60,7 +60,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        com.upgradeTheQuest.Main
+                                        com.application.Main
                                     </mainClass>
                                 </manifest>
                             </archive>

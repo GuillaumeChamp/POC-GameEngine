@@ -1,6 +1,6 @@
 package Graphic;
 
-import com.upgradeTheQuest.Graphic.Elements.AnimatedImage;
+import com.application.Graphic.Elements.AnimatedImage;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
