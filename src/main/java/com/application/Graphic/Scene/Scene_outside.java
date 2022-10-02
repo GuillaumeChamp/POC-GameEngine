@@ -115,7 +115,7 @@ public class Scene_outside extends Game_Scene{
         //Calculate ratio to allow resize
         double xRatio = width/ printLimitX;
         double yRatio = height/ printLimitY;
-        double ratio = Math.min(xRatio,yRatio);
+        double ratio = Math.max(xRatio,yRatio);
 
         double offSetLandX = player.skin.getPositionX() - (printLimitX/2)-Graphic_Const.H_PLAYER_TILE_SIZE*xRatio/2;
         double offSetLandY = player.skin.getPositionY() - (printLimitY/2)-Graphic_Const.V_PLAYER_TILE_SIZE*yRatio/2;
