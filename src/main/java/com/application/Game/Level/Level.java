@@ -25,12 +25,14 @@ public class Level {
     }
     public boolean isCollision(double playerX, double playerY){
         int tileSize = Graphic_Const.TILES_SIZE;
-        int xIndex = (int) Math.floor(playerX / (tileSize));
-        int yIndex = (int) Math.floor(playerY / (tileSize));
+        double xIndex = Math.ceil(playerX / (tileSize));
+        if (xIndex==-0) xIndex = -1;
+        double yIndex = Math.ceil(playerY / (tileSize));
+        if (yIndex==-0) yIndex = -1;
         try {
-            return overTiles[xIndex][yIndex].getClass()== Collision.class;
+            return overTiles[(int) xIndex][(int) yIndex].getClass()== Collision.class;
         }catch (ArrayIndexOutOfBoundsException e){
-            throw new OOBException(yIndex,xIndex);
+            throw new OOBException((int) yIndex, (int) xIndex);
         }catch (NullPointerException ee){
             return false;
         }

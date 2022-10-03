@@ -20,9 +20,9 @@ public class PlayerMovement extends MovingAnimatedImage {
             }
         }catch (OOBException e){
             if(e.lineIndex <0) positionX=0;
-            if (e.lineIndex>location.getSizeX()/16) positionX = location.getSizeX()-2*Graphic_Const.TILES_SIZE;
+            if (e.lineIndex>=location.getSizeX()/16) positionX = location.getSizeX()-Graphic_Const.TILES_SIZE;
             if(e.columnIndex <0) positionY=0;
-            if (e.columnIndex>location.getSizeY()/16) positionY=location.getSizeY()-2*Graphic_Const.TILES_SIZE;
+            if (e.columnIndex>=location.getSizeY()/16) positionY=location.getSizeY()-Graphic_Const.TILES_SIZE;
         }
     }
 
