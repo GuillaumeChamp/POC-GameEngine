@@ -110,6 +110,7 @@ public class Scene_outside extends Game_Scene{
     public void paintScene(){
         double t = System.nanoTime() / 1000000000.0;
         int tileSize = Graphic_Const.TILES_SIZE;
+        int playerSize = Graphic_Const.PLAYER_TILE_SIZE;
         double printLimitX = Graphic_Const.H_TILES_PER_SCREEN*tileSize;
         double printLimitY = Graphic_Const.V_TILES_PER_SCREEN*tileSize;
         //Calculate ratio to allow resize
@@ -117,14 +118,14 @@ public class Scene_outside extends Game_Scene{
         double yRatio = height/ printLimitY;
         double ratio = Math.max(xRatio,yRatio);
 
-        double offSetLandX = player.skin.getPositionX() - (printLimitX/2)-Graphic_Const.H_PLAYER_TILE_SIZE*xRatio/2;
-        double offSetLandY = player.skin.getPositionY() - (printLimitY/2)-Graphic_Const.V_PLAYER_TILE_SIZE*yRatio/2;
+        double offSetLandX = player.skin.getPositionX() - (printLimitX/2)-playerSize*xRatio/2;
+        double offSetLandY = player.skin.getPositionY() - (printLimitY/2)-playerSize*yRatio/2;
 
 
         if (offSetLandX < 0) offSetLandX = 0;
-        if (offSetLandX >= player.location.getSizeX()-printLimitX-Graphic_Const.H_PLAYER_TILE_SIZE) offSetLandX = player.location.getSizeX()-printLimitX-Graphic_Const.H_PLAYER_TILE_SIZE;
+        if (offSetLandX >= player.location.getSizeX()-printLimitX-playerSize) offSetLandX = player.location.getSizeX()-printLimitX-playerSize;
         if (offSetLandY < 0) offSetLandY = 0;
-        if (offSetLandY >= player.location.getSizeY()-printLimitY-Graphic_Const.V_PLAYER_TILE_SIZE) offSetLandY = player.location.getSizeY()-printLimitY-Graphic_Const.V_PLAYER_TILE_SIZE;
+        if (offSetLandY >= player.location.getSizeY()-printLimitY-playerSize) offSetLandY = player.location.getSizeY()-printLimitY-playerSize;
 
         //gc.drawImage(player.location.getBackground(),offSetLandX,offSetLandY, printLimitX, printLimitY,0,0, printLimitX*xRatio,yRatio*printLimitY);
         Tile[][] tiles = player.location.getTiles();
@@ -132,7 +133,7 @@ public class Scene_outside extends Game_Scene{
             for (int j=0;j<tiles[0].length;j++)
                 gc.drawImage(tiles[i][j].getSkin(), i * tileSize * ratio, j * tileSize * ratio, tileSize * ratio, tileSize * ratio);
 
-        gc.drawImage(player.skin.getFrame(t), (player.skin.getPositionX() - offSetLandX)*xRatio, (player.skin.getPositionY()-offSetLandY)*yRatio,Graphic_Const.H_PLAYER_TILE_SIZE*xRatio*tileSize,Graphic_Const.V_PLAYER_TILE_SIZE*yRatio*tileSize);
+        gc.drawImage(player.skin.getFrame(t), (player.skin.getPositionX() - offSetLandX)*xRatio, (player.skin.getPositionY()-offSetLandY)*yRatio,playerSize*xRatio*tileSize,playerSize*yRatio*tileSize);
     }
 
     @Override
