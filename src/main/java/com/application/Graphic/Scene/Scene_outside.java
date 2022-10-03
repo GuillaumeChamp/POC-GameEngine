@@ -49,7 +49,7 @@ public class Scene_outside extends Game_Scene{
             player.skin.addVelocity(0, 10);
             moved = true;
         }
-        player.skin.update();
+        player.update();
         if (moved) triggerCombat();
     }
 
@@ -58,7 +58,7 @@ public class Scene_outside extends Game_Scene{
         int FIGHT_PROTECTION = 50;
         if (lastFight< FIGHT_PROTECTION) return;
         double rng = Math.random();
-        if (rng>0.95) Combat();
+        if (rng>0.96) Combat();
     }
 
     private void Combat(){

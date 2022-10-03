@@ -8,7 +8,6 @@ import com.application.Loader.LevelLoader;
 public class Player {
     public PlayerMovement skin;
     public Level location;
-    private TriggerList progression;
 
     public Player(){
         try {
@@ -16,11 +15,16 @@ public class Player {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        skin = new PlayerMovement("Skin/player.png", 1,location);
+        skin = new PlayerMovement("Skin/player.png", 1);
     }
+
     public Player(String x,String y,String level) throws Exception {
         location = LevelLoader.load(level);
-        skin = new PlayerMovement("Skin/player.png", 1,location);
+        skin = new PlayerMovement("Skin/player.png", 1);
         skin.setPosition(Double.parseDouble(x),Double.parseDouble(y));
+    }
+
+    public void update() {
+        skin.update(location);
     }
 }

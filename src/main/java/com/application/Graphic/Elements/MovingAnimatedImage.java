@@ -31,13 +31,4 @@ public class MovingAnimatedImage extends AnimatedImage {
         this.velocityX += velocityX;
         this.velocityY += velocityY;
     }
-    public void update() {
-        //TODO : must follow the patrol of the npc
-        positionY += velocityY;
-        positionX += velocityX;
-        if (0 > positionX) positionX = 0;
-        if (0 > positionY) positionY = 0;
-        if (positionX > XLim) positionX = XLim;
-        if (positionY > YLim) positionY = YLim;
-    }
 }

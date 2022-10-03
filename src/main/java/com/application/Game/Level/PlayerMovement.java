@@ -5,19 +5,27 @@ import com.application.Graphic.Graphic_Const;
 
 public class PlayerMovement extends MovingAnimatedImage {
 
-    public PlayerMovement(String path, double duration,Level level) {
+    public PlayerMovement(String path, double duration) {
         super(path,duration, Graphic_Const.SPRITE_WIDTH,Graphic_Const.SPRITE_HEIGHT,0);
-        XLim = level.getSizeX();
-        YLim = level.getSizeY();
     }
-    public void update() {
+    public void update(Level location) {
+        double oldY = positionY;
+        double oldX = positionX;
         positionY += velocityY;
         positionX += velocityX;
-        if (0 > positionX) positionX = 0;
-        if (0 > positionY) positionY = 0;
-        if (positionX > XLim-40) positionX = XLim - 40;
-        if (positionY > YLim- 40) positionY = YLim - 40;
+        try {
+            if (location.isCollision(positionX,positionY)){
+                positionY= oldY;
+                positionX = oldX;
+            }
+        }catch (OOBException e){
+            if(e.lineIndex <0) positionX=0;
+            if (e.lineIndex>location.getSizeX()/16) positionX = location.getSizeX()-Graphic_Const.TILES_SIZE;
+            if(e.columnIndex <0) positionY=0;
+            if (e.columnIndex>location.getSizeY()/16) positionY=location.getSizeY()-Graphic_Const.TILES_SIZE;
+        }
     }
+
     public void changeLevel(Level newLevel,double x,double y){
         XLim = newLevel.getSizeX();
         YLim = newLevel.getSizeY();
