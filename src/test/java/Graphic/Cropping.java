@@ -20,7 +20,7 @@ public class Cropping extends Application {
         int SPRITE_SIZE = 64;
         Canvas canvas = new Canvas(WINDOW, WINDOW);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        AnimatedImage imageTest = new AnimatedImage("Skin/player.png",SPRITE_SIZE,SPRITE_SIZE,0);
+        AnimatedImage imageTest = new AnimatedImage("player.png",SPRITE_SIZE,SPRITE_SIZE,0);
         root.getChildren().add(canvas);
         stage.setScene(scene);
         new AnimationTimer() {

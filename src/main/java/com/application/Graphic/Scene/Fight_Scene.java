@@ -36,7 +36,7 @@ public class Fight_Scene extends Game_Scene {
         int rand = 1+ (int) (Math.ceil((Math.random()*100-1)/50));
         heroes = PlayerData.getHeroes();
         for (int i =0;i<rand;i++)
-            enemies.add(new Enemy(16,1,8,10,"chou",new AnimatedImage("Skin//player.png",64,64,0),10,null));
+            enemies.add(new Enemy(16,1,8,10,"chou",new AnimatedImage("player.png",64,64,0),10,null));
         for (Hero h : heroes) h.setSkin();
         //TODO read the list of enemy and load them
         this.addController();

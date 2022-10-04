@@ -15,12 +15,12 @@ public class Player {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        skin = new PlayerMovement("Skin/player.png", 1);
+        skin = new PlayerMovement("player.png", 1);
     }
 
     public Player(String x,String y,String level) throws Exception {
         location = LevelLoader.load(level);
-        skin = new PlayerMovement("Skin/player.png", 1);
+        skin = new PlayerMovement("player.png", 1);
         skin.teleportPlayer(Double.parseDouble(x),Double.parseDouble(y));
     }
 

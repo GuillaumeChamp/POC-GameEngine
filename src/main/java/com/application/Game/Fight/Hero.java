@@ -34,7 +34,7 @@ public class Hero extends Entity implements Serializable {
     }
 
     public static AnimatedImage createSkin(String name) {
-        return new AnimatedImage("Skin//player.png",64,64,0);
+        return new AnimatedImage("player.png",64,64,0);
     }
 
     public void defineAttack(FightActions actions, Entity target){
