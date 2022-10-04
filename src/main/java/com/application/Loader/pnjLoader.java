@@ -3,17 +3,19 @@ package com.application.Loader;
 import com.application.Game.Level.LevelElements.PNJ;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class pnjLoader extends Loader<PNJ>{
+    static final String path = "Data"+File.separator+"pnj"+ File.separator;
     @Override
     public PNJ load(String name) {
         try{
             return reload(name);
         } catch (IOException e) {
             try {
-                FileReader reader = new FileReader("Data/pnj/" + name);
+                FileReader reader = new FileReader(path+ name);
                 BufferedReader bufferedReader = new BufferedReader(reader);
 
                 String pnj_name = bufferedReader.readLine();

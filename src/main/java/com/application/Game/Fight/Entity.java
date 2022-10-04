@@ -90,9 +90,15 @@ public abstract class Entity implements Serializable {
      */
     public void buff(String stat,boolean up) throws Exception {
         switch (stat) {
-            case "armor" -> appliedBuff(armorBuff, up);
-            case "attack" -> appliedBuff(damageBuff, up);
-            default -> System.out.println("Error in typo of a buff passed to the function");
+            case "armor" :
+                appliedBuff(armorBuff, up);
+                break;
+            case "attack" :
+                appliedBuff(damageBuff, up);
+                break;
+            default :
+                System.out.println("Error in typo of a buff passed to the function");
+                break;
         }
     }
 

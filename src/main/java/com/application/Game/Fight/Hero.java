@@ -12,20 +12,20 @@ public class Hero extends Entity implements Serializable {
     public Hero(String name){
         super(10, 10, 10, 10, name, createSkin(name));
         switch (name) {
-            case "1" -> {
+            case "1" :
                 this.hpMax =32;
                 this.hp = 32;
                 this.armor = 5;
                 this.speed = 10;
                 this.damage = 5;
-            }
-            case "2" -> {
+                break;
+            case "2" :
                 this.hpMax=40;
                 this.hp = 40;
                 this.armor = 10;
                 this.speed = 8;
                 this.damage = 1;
-            }
+                break;
         }
         this.level = 0;
     }

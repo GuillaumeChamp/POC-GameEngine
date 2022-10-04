@@ -9,12 +9,12 @@ public class Options {
 
     public Options(MenuType macro){
         switch (macro) {
-            case main -> {
+            case main :
                 options = new ArrayList<>();
                 options.add("Heroes");
                 options.add("Exit");
-            }
-            case test -> {
+                break;
+            case test :
                 options = new ArrayList<>();
                 options.add("Test");
                 options.add("Exit");
@@ -24,13 +24,11 @@ public class Options {
                 options.add("Exit");
                 options.add("Exit");
                 options.add("Exit");
-
-
-            }
-            case fight -> {
+                break;
+            case fight :
                 options = new ArrayList<>();
                 options.add("Attack");
-            }
+                break;
         }
         selected=0;
     }

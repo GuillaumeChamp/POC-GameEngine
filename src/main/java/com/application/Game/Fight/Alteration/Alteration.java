@@ -13,31 +13,31 @@ public class Alteration {
      */
     public Alteration(alteration name){
         switch (name) {
-            case poisonI -> {
+            case poisonI :
                 this.name = alteration.poisonI;
                 this.duration = 3;
                 this.strength = 1;
-            }
-            case sleep -> {
+                break;
+            case sleep :
                 this.name = alteration.sleep;
                 this.duration = 3;
                 this.strength = 1;
-            }
-            case death ->{
+                break;
+            case death :
                 this.name = alteration.death;
                 this.duration = 9999;
-            }
-            default -> {
+                break;
+            default :
                 System.out.println("try to create an alteration that not exist");
                 this.name=null;
                 this.duration= 99999;
                 this.strength=0;
-            }
+                break;
         }
     }
     public void addTurn(){
         if (!this.name.equals(alteration.death))
-        this.time++;
+            this.time++;
     }
     public boolean checkEnd(){
         return  (time >= duration);
