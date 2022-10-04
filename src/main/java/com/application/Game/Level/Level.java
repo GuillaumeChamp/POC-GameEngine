@@ -15,14 +15,34 @@ public class Level {
 
     private ArrayList<Warp> tp;
 
+    /**
+     * Create a Level (Should be only used by the level Loader)
+     * @param name name of the level (matching with the file name)
+     * @param overTiles set of overTiles read from a level data file
+     * @param tiles set of tiles read from a level data file
+     */
     public Level(String name,OverTile[][] overTiles, Tile[][] tiles){
         this.name=name;
         this.overTiles=overTiles;
         this.tiles=tiles;
     }
+
+    /**
+     * simple getter
+     * @return the list of all tiles
+     */
     public Tile[][] getTiles() {
         return tiles;
     }
+
+    /**
+     * Detect if a collision while occure
+     * @param playerX query position x
+     * @param playerY query position y
+     * @return true in case of collision
+     * Special case if the overTile is not defined it's assumed that there are no collision
+     * @throws OOBException if the player query an out of bound position
+     */
     public boolean isCollision(double playerX, double playerY){
         int tileSize = Graphic_Const.TILES_SIZE;
         double xIndex = Math.ceil(playerX / (tileSize));

@@ -8,6 +8,11 @@ public class PlayerMovement extends MovingAnimatedImage {
     public PlayerMovement(String path, double duration) {
         super(path,duration, Graphic_Const.SPRITE_WIDTH,Graphic_Const.SPRITE_HEIGHT,0);
     }
+
+    /**
+     * Update the position of the player checking level constrain (collision and bound)
+     * @param location current level
+     */
     public void update(Level location) {
         double oldY = positionY;
         double oldX = positionX;
@@ -26,16 +31,15 @@ public class PlayerMovement extends MovingAnimatedImage {
         }
     }
 
-    public void changeLevel(Level newLevel,double x,double y){
-        XLim = newLevel.getSizeX();
-        YLim = newLevel.getSizeY();
+    /**
+     * Teleport the player to a new position and reset his speed
+     * @param x position in pixel
+     * @param y position in pixel
+     */
+    public void teleportPlayer(double x, double y){
         velocityX=0;
         velocityY=0;
         positionX=x;
         positionY=y;
-    }
-    public void setPosition(double x, double y){
-        this.positionX=x;
-        this.positionY=y;
     }
 }

@@ -21,7 +21,7 @@ public class Player {
     public Player(String x,String y,String level) throws Exception {
         location = LevelLoader.load(level);
         skin = new PlayerMovement("Skin/player.png", 1);
-        skin.setPosition(Double.parseDouble(x),Double.parseDouble(y));
+        skin.teleportPlayer(Double.parseDouble(x),Double.parseDouble(y));
     }
 
     public void update() {

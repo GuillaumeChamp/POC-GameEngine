@@ -1,6 +1,7 @@
 package com.application.Graphic.Elements;
 
 import com.application.Game.Universal.ImageCropper;
+import com.application.Game.Universal.ImageHolder;
 import javafx.scene.image.Image;
 
 import java.io.Serializable;
@@ -19,9 +20,15 @@ public class AnimatedImage implements Serializable
      * @param animationId row to load
      */
     public AnimatedImage(String path,int width,int length,int animationId){
-        frames = ImageCropper.crop(path,animationId,width,length);
+        frames = ImageHolder.getSprites(path,animationId,width,length);
         duration = 1;
     }
+
+    /**
+     * Get a particular frame
+     * @param time current time that is used to cycle through sprite sheet
+     * @return a single Image
+     */
     public Image getFrame(double time)
     {
         int index = (int)((time % (frames.length * duration)) / duration);
