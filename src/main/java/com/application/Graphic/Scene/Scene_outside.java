@@ -4,8 +4,11 @@ import com.application.Game.Level.LevelElements.Layer0.Tile;
 import com.application.Game.Universal.Player;
 import com.application.Graphic.Game;
 import com.application.Graphic.Graphic_Const;
+import com.application.Graphic.Interface.DialogPrompt;
 import com.application.Graphic.Interface.Menu;
+import com.application.Graphic.Interface.MenuType;
 import com.application.Graphic.Interface.Options;
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
@@ -17,7 +20,7 @@ import javafx.scene.text.FontWeight;
 
 public class Scene_outside extends Game_Scene{
     private final Player player;
-    public Menu lastMenu = null;
+    public MenuType lastMenu = null;
     private int lastFight;
 
 
@@ -81,7 +84,7 @@ public class Scene_outside extends Game_Scene{
             walk();
             return;
         }
-        lastMenu.changeOption();
+        lastMenu.performController();
     }
 
     private void paintMenu() {
@@ -91,19 +94,26 @@ public class Scene_outside extends Game_Scene{
         double xRatio = width/ printLimitX;
         double yRatio = height/ printLimitY;
         paintScene();
-        int POLICE_SIZE=30;
+        int POLICE_SIZE=18;
         double effectivePolice = POLICE_SIZE*Math.max(xRatio,yRatio);
-        Rectangle2D position = lastMenu.getPosition();
-        Options options = lastMenu.getOptions();
+        Rectangle2D TextFrame = lastMenu.getPosition(effectivePolice);
+
         gc.setFill(Color.BLUE);
-        gc.fillRect(position.getMinX(),position.getMinY(), position.getWidth()*Math.max(xRatio,yRatio),position.getHeight()*Math.max(xRatio,yRatio));
+        gc.fillRect(TextFrame.getMinX()*xRatio,TextFrame.getMinY()*yRatio, TextFrame.getWidth()*xRatio,TextFrame.getHeight());
         gc.setFill(Color.BLACK);
-        for (int i=0;i<options.options.size();i++){
-            if (i==options.getSelected())
-                gc.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR,effectivePolice));
-            else
-                gc.setFont(Font.font("Verdana", FontWeight.NORMAL, FontPosture.REGULAR,effectivePolice));
-            gc.fillText(options.options.get(i), position.getMinX(), position.getMinY()+effectivePolice*(i+1));
+        if (lastMenu.getClass()==Menu.class){
+            Options options = (Options) lastMenu.getContent();
+            for (int i=0;i<options.options.size();i++){
+                if (i==options.getSelected())
+                    gc.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR,effectivePolice));
+                else
+                    gc.setFont(Font.font("Verdana", FontWeight.NORMAL, FontPosture.REGULAR,effectivePolice));
+                gc.fillText(options.options.get(i), TextFrame.getMinX()*xRatio, (TextFrame.getMinY()*yRatio+effectivePolice*(i+1)));
+            }
+        }
+        if (lastMenu.getClass()== DialogPrompt.class){
+            String content = (String) lastMenu.getContent();
+            gc.fillText(content,TextFrame.getMinX()*xRatio,(TextFrame.getMinY()*yRatio+effectivePolice));
         }
     }
 
@@ -150,7 +160,7 @@ public class Scene_outside extends Game_Scene{
                     if (code.equals("R"))
                         System.out.println(player.skin.getPositionX() +"  "+ player.skin.getPositionY());
                     if (code.equals("ENTER"))
-                        new Menu(this,this,new Rectangle2D(0,0,150,70), Options.MenuType.main);
+                        new Menu(this,this,new Point2D(0,0), Options.MenuType.main);
                 }
         );
 

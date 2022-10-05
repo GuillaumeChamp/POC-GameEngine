@@ -9,7 +9,7 @@ public class OptionControls {
                     String code = e.getCode().toString();
                     if (!Game_Scene.input.contains(code)) {
                         Game_Scene.input.add(code);
-                        menu.changeOption();
+                        menu.performController();
                         menu.scrolling=0;
                     }
                     if (code.equals("ENTER"))
@@ -23,6 +23,11 @@ public class OptionControls {
             Game_Scene.input.remove(code);
             if (Game_Scene.input.isEmpty()) menu.scrolling=Long.MAX_VALUE;
         });
+    }
+
+    public static void addController(Scene_outside scene, DialogPrompt menu){
+        scene.setOnKeyPressed(e -> menu.next()
+        );
     }
 
 }

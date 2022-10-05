@@ -42,4 +42,7 @@ public class Options {
     public int getSelected() {
         return selected;
     }
+    public int length(){
+        return options.size();
+    }
 }
