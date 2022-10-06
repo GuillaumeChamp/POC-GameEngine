@@ -16,12 +16,6 @@ public class Options {
                 break;
             case test :
                 options = new ArrayList<>();
-                options.add("Test");
-                options.add("Exit");
-                options.add("Exit");
-                options.add("Exit");
-                options.add("Exit");
-                options.add("Exit");
                 options.add("Exit");
                 options.add("Exit");
                 break;

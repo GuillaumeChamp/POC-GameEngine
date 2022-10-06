@@ -24,12 +24,21 @@ public class ImageHolder {
         if (tag.contains(name)){
             return images.get(tag.indexOf(name));
         }
+        garbageCollector();
         Image im = new Image(path+name, Graphic_Const.TILES_SIZE,Graphic_Const.TILES_SIZE,false,false);
         images.add(im);
         tag.add(name);
         return im;
     }
 
+    /**
+     * return a whole sprite sheet using in memory or create it if not found
+     * @param name sprite name
+     * @param animationID animation id (row)
+     * @param xStep argument of image cropper
+     * @param yStep argument of image cropper
+     * @return all sprite related
+     */
     public static Image[] getSprites(String name,int animationID,int xStep,int yStep){
         if (tag.contains(name+animationID)){
             ArrayList<Image> ans = new ArrayList<>();
@@ -38,10 +47,21 @@ public class ImageHolder {
             }
             return ans.toArray(new Image[0]);
         }
+        garbageCollector();
         Image[] im = ImageCropper.crop(name,animationID,xStep,yStep);
         images.addAll(Arrays.asList(im));
         for (int i = 0;i<im.length;i++) tag.add(name+animationID);
         return im;
+    }
+
+    /**
+     * implementing naive garbage collector to clear older image if mare than 64 images
+     */
+    private static void garbageCollector(){
+        while (tag.size()>64){
+            tag.remove(0);
+            images.remove(0);
+        }
     }
 
 }
