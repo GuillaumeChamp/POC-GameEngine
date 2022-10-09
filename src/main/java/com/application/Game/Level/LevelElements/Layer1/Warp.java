@@ -22,6 +22,18 @@ public class Warp extends OverTile {
         if (ctn+100>= Integer.MAX_VALUE) throw new InvalidIdException("Already to much Encounter");
     }
 
+    public int getxDes() {
+        return xDes;
+    }
+
+    public int getyDes() {
+        return yDes;
+    }
+
+    public String getExit() {
+        return exit;
+    }
+
     @Override
     public String toString() {
         return "Warp{" +

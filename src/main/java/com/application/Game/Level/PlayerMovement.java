@@ -1,5 +1,6 @@
 package com.application.Game.Level;
 
+import com.application.Game.Level.LevelElements.TPException;
 import com.application.Graphic.Elements.MovingAnimatedImage;
 import com.application.Graphic.Graphic_Const;
 
@@ -13,7 +14,7 @@ public class PlayerMovement extends MovingAnimatedImage {
      * Update the position of the player checking level constrain (collision and bound)
      * @param location current level
      */
-    public void update(Level location) {
+    public void update(Level location) throws TPException {
         double oldY = positionY;
         double oldX = positionX;
         positionY += velocityY;

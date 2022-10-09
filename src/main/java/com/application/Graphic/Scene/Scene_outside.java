@@ -61,7 +61,7 @@ public class Scene_outside extends Game_Scene{
         int FIGHT_PROTECTION = 50;
         if (lastFight< FIGHT_PROTECTION) return;
         double rng = Math.random();
-        if (rng>0.96) Combat();
+        if (rng>0.98) Combat();
     }
 
     private void Combat(){
@@ -141,8 +141,7 @@ public class Scene_outside extends Game_Scene{
         Tile[][] tiles = player.location.getTiles();
         for(int i=0;i<tiles.length;i++)
             for (int j=0;j<tiles[0].length;j++)
-                gc.drawImage(tiles[i][j].getSkin(), i * tileSize * ratio, j * tileSize * ratio, tileSize * ratio, tileSize * ratio);
-
+                gc.drawImage(tiles[i][j].getSkin(), i * tileSize * xRatio-offSetLandX* xRatio, j * tileSize * yRatio-offSetLandY*yRatio, tileSize * xRatio, tileSize * yRatio);
         gc.drawImage(player.skin.getFrame(t), (player.skin.getPositionX() - offSetLandX)*xRatio, (player.skin.getPositionY()-offSetLandY)*yRatio,playerSize*xRatio*tileSize,playerSize*yRatio*tileSize);
     }
 

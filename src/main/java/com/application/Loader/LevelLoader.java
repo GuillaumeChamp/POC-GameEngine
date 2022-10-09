@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class LevelLoader {
 
-    final static String rep = "src"+File.separator+"main"+File.separator+"resources"+File.separator+"Level"+File.separator+"hub"+File.separator;
+    final static String rep = "src"+File.separator+"main"+File.separator+"resources"+File.separator+"Level"+File.separator;
     final static String extension0 = ".level0";
     final static String extension1 = ".level1";
     final static String extensionImage = ".png";
@@ -28,8 +28,8 @@ public class LevelLoader {
      * @throws Exception if one of the three files is missing
      */
     public static Level load(String name) throws Exception{
-        ObjectInputStream oot = new ObjectInputStream(Files.newInputStream(new File(rep + name + extension0).toPath()));
-        ObjectInputStream oot1 = new ObjectInputStream(Files.newInputStream(new File(rep + name + extension1).toPath()));
+        ObjectInputStream oot = new ObjectInputStream(Files.newInputStream(new File(rep + name +File.separator + name + extension0).toPath()));
+        ObjectInputStream oot1 = new ObjectInputStream(Files.newInputStream(new File(rep + name +File.separator + name + extension1).toPath()));
         int[][] tilesIndex = (int[][]) oot.readObject();
         OverTile[][] overTiles = (OverTile[][]) oot1.readObject();
         oot.close();
@@ -38,7 +38,7 @@ public class LevelLoader {
         int width = tilesIndex[0].length;
         int tileSize = Graphic_Const.TILES_SIZE;
 
-        String texturePath = rep+name+extensionImage;
+        String texturePath = rep+name+File.separator+name+extensionImage;
         Image image = new Image(new File(texturePath).toURI().toString());
         PixelReader reader = image.getPixelReader();
         ArrayList<Tile> SavedTile = new ArrayList<>();

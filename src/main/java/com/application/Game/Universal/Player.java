@@ -2,6 +2,8 @@ package com.application.Game.Universal;
 
 
 import com.application.Game.Level.Level;
+import com.application.Game.Level.LevelElements.Layer1.Warp;
+import com.application.Game.Level.LevelElements.TPException;
 import com.application.Game.Level.PlayerMovement;
 import com.application.Loader.LevelLoader;
 
@@ -25,6 +27,24 @@ public class Player {
     }
 
     public void update() {
-        skin.update(location);
+        try {
+            skin.update(location);
+        } catch (TPException e) {
+            changeLevel(e.getTp());
+        }
+    }
+
+    /**
+     * Teleport a player to a new level
+     * @param tp the trigger warp holding information to new location
+     */
+    private void changeLevel(Warp tp){
+        try {
+            this.location = LevelLoader.load(tp.getExit());
+            skin.teleportPlayer(tp.getxDes(),tp.getyDes());
+        } catch (Exception ex) {
+            System.out.println("Trying to tp to a non existing level");
+            throw new RuntimeException(ex);
+        }
     }
 }

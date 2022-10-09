@@ -28,7 +28,7 @@ public class Menu implements MenuType {
     }
     public void performAction(){
         String action = options.options.get(options.selected);
-        if (action.contains("Test")) new DialogPrompt(scene,new String[]{"this is a test"});
+        if (action.contains("Test")) new DialogPrompt(scene,new String[]{"this is a test","another one","and still so"});
         if (action.contains("Heroes")) new Menu(scene,this,new Point2D(0,0), Options.MenuType.test);
         if (action.contains("Exit")) exitMenu();
     }
