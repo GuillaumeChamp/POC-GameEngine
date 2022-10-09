@@ -1,6 +1,5 @@
 package com.application.Graphic.Elements;
 
-import com.application.Game.Universal.ImageCropper;
 import com.application.Game.Universal.ImageHolder;
 import javafx.scene.image.Image;
 

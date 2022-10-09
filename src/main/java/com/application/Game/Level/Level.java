@@ -7,14 +7,10 @@ import com.application.Game.Level.LevelElements.Layer1.Warp;
 import com.application.Game.Level.LevelElements.TPException;
 import com.application.Graphic.Graphic_Const;
 
-import java.util.ArrayList;
-
 public class Level {
     private final String name;
     private final Tile[][] tiles;
     private final OverTile[][] overTiles;
-
-    private ArrayList<Warp> tp;
 
     /**
      * Create a Level (Should be only used by the level Loader)
@@ -43,6 +39,7 @@ public class Level {
      * @return true in case of collision
      * Special case if the overTile is not defined it's assumed that there are no collision
      * @throws OOBException if the player query an out of bound position
+     * @throws TPException if the player hit a warp
      */
     public boolean isCollision(double playerX, double playerY) throws TPException {
         int tileSize = Graphic_Const.TILES_SIZE;

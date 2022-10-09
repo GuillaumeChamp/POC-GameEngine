@@ -5,8 +5,6 @@ public class MovingAnimatedImage extends AnimatedImage {
     protected double positionY;
     protected double velocityX;
     protected double velocityY;
-    protected static double XLim;
-    protected static double YLim;
 
     public MovingAnimatedImage(String path, double duration,int width,int length,int animationId) {
         super(path,width,length,animationId);
