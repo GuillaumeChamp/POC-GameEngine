@@ -10,6 +10,7 @@ import com.application.Loader.LevelLoader;
 public class Player {
     public PlayerMovement skin;
     public Level location;
+    private final double FRAME_DURATION=0.2;
 
     public Player(){
         try {
@@ -17,12 +18,12 @@ public class Player {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        skin = new PlayerMovement("player.png", 1);
+        skin = new PlayerMovement("player.png", FRAME_DURATION);
     }
 
     public Player(String x,String y,String level) throws Exception {
         location = LevelLoader.load(level);
-        skin = new PlayerMovement("player.png", 1);
+        skin = new PlayerMovement("player.png", FRAME_DURATION);
         skin.teleportPlayer(Double.parseDouble(x),Double.parseDouble(y));
     }
 

@@ -33,28 +33,34 @@ public class Scene_outside extends Game_Scene{
     }
 
     private void walk(){
+        double STRENGTH = 2.5;
         player.skin.setVelocity(0,0);
         boolean moved = false;
         if (input.contains("LEFT")) {
-            player.skin.addVelocity(-10, 0);
+            player.skin.addVelocity(-STRENGTH, 0);
             moved = true;
         }
         if (input.contains("RIGHT")) {
-            player.skin.addVelocity(10, 0);
+            player.skin.addVelocity(STRENGTH, 0);
             moved = true;
         }
         if (input.contains("UP")) {
-            player.skin.addVelocity(0, -10);
+            player.skin.addVelocity(0, -STRENGTH);
             moved = true;
         }
         if (input.contains("DOWN")) {
-            player.skin.addVelocity(0, 10);
+            player.skin.addVelocity(0, STRENGTH);
             moved = true;
         }
         player.update();
-        if (moved) triggerCombat();
+        if (moved) {
+            triggerCombat();
+        }
     }
 
+    /**
+     * Trigger a combat and include fight_protection
+     */
     private void triggerCombat(){
         lastFight++;
         int FIGHT_PROTECTION = 50;

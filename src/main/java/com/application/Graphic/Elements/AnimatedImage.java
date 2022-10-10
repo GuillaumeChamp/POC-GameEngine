@@ -20,7 +20,7 @@ public class AnimatedImage implements Serializable
      */
     public AnimatedImage(String path,int width,int length,int animationId){
         frames = ImageHolder.getSprites(path,animationId,width,length);
-        duration = 1;
+        duration = 0.1;
     }
 
     /**

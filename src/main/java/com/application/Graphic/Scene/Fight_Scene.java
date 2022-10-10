@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 //TODO : Rebuild to delete scene aspect
 public class Fight_Scene extends Game_Scene {
-    //TODO : might hold enemy but not the hero except on static field
     private final Image background = new Image("Level//town_land.png");
     private final ArrayList<Enemy> enemies = new ArrayList<>();
     private final ArrayList<Hero> heroes;

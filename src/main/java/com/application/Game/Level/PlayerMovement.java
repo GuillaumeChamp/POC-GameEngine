@@ -3,6 +3,7 @@ package com.application.Game.Level;
 import com.application.Game.Level.LevelElements.TPException;
 import com.application.Graphic.Elements.MovingAnimatedImage;
 import com.application.Graphic.Graphic_Const;
+import javafx.scene.image.Image;
 
 public class PlayerMovement extends MovingAnimatedImage {
 
@@ -42,5 +43,11 @@ public class PlayerMovement extends MovingAnimatedImage {
         velocityY=0;
         positionX=x;
         positionY=y;
+    }
+
+    @Override
+    public Image getFrame(double time) {
+        if (velocityX==0 && velocityY==0) return frames[0];
+        else return super.getFrame(time);
     }
 }
