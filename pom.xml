@@ -12,6 +12,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.test>17</maven.compiler.test>
         <javafx.version>21.0.5</javafx.version>
+        <javafx.platform>win</javafx.platform>
     </properties>
 
     <dependencies>
@@ -24,24 +25,6 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
             <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics </artifactId>
-            <version>${javafx.version}</version>
-            <classifier>win</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics </artifactId>
-            <version>${javafx.version}</version>
-            <classifier>linux</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics </artifactId>
-            <version>${javafx.version}</version>
-            <classifier>mac</classifier>
         </dependency>
     </dependencies>
 
