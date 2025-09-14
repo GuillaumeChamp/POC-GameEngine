@@ -1,6 +1,6 @@
 package com.application;
 
-import com.application.Graphic.Game;
+import com.application.graphic.Game;
 
 public class Main {
     public static void main(String[] args) {

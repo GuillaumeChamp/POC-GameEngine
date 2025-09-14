@@ -1,6 +1,6 @@
 package Graphic;
 
-import com.application.Graphic.Elements.AnimatedImage;
+import com.application.graphic.elements.AnimatedImage;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
